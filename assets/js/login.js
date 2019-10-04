@@ -1,9 +1,19 @@
-
 (function ($) {
     "use strict";
 
 
+$('.tab a').on('click', function (e) {
+  
+  e.preventDefault();
+  console.log('JS')
+  
+  var target = $(this).attr('href');
 
+  $('.tab-content > div').not(target).hide();
+  
+  $(target).fadeIn(800);
+  
+});
   
   
     /*==================================================================
