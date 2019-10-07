@@ -9,8 +9,6 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="assets/fonts/fontawesome/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<!--link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css"-->
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="assets/vendor/animate/animate.css">
 <!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="assets/vendor/css-hamburgers/hamburgers.min.css">
@@ -76,36 +74,125 @@
 						<span class="login100-form-title p-b-34">
 							¿Qué tipo de cuenta deseas registrar?
 						</span>
+						
 						<div style="width:50%; text-align:center;" class="tab">
-							<img src="assets/images/login/user.png" width='100px' height='100px'><div style="height:20px"></div>
-							<a href="#cliente">Cliente</a>
+							<a href="#cliente">
+								<img src="assets/images/login/user.png" width='100px' height='100px'><div style="height:20px"></div>
+								Cliente
+							</a>
 						</div>
 						<div style="width:50%; text-align:center;" class="tab">
-							<img src="assets/images/login/user.png" width='100px' height='100px'><div style="height:20px"></div>
-							<a href="#abogado">Abogado</a>
+							<a href="#abogado">
+								<img src="assets/images/login/user.png" width='100px' height='100px'><div style="height:20px"></div>
+								Abogado
+							</a>
 						</div>
 					</div>
 					<div class="tab w-full text-center">
 							<a href="#login" class="txt3">
 								Log In
 							</a>
-						</div><div style="height:30px"></div>
+						</div>
+					<div style="height:30px"></div>
 				</div>
 				<div id="cliente" style="display:none;">
-					Aqui va lo del cliente :v
-					<div class="tab w-full text-center">
+					<div class="tab w-full">
+					
+						<form class="login100-form validate-form">
+							<span class="login100-form-title p-b-34">
+								Ingresa la siguiente información
+							</span>
+							
+							Nombre completo
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa tu nombre">
+								<input class="input100" type="text" name="username" placeholder="nombre">
+								<span class="focus-input100"></span>
+							</div>
+							
+							Contraseña
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa una contraseña">
+								<input class="input100" type="password" name="pass" placeholder="contraseña">
+								<span class="focus-input100"></span>
+							</div>
+							
+							Correo
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa un correo válido">
+								<input class="input100" type="email" name="email" placeholder="correo">
+								<span class="focus-input100"></span>
+							</div>
+							
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Debes estar de acuerdo" style="border:none;">
+								<input class="input100" style="width:auto; height:auto; display:inline;" type="checkbox" name="agree"> Estoy de acuerdo con los <a href="" style="">términos y condiciones.</a></input>
+								<span class="focus-input100"></span>
+							</div>
+														
+							<div class="container-login100-form-btn">
+								<button class="login100-form-btn">
+									Sign in
+								</button>
+							</div>
+						</form>
+						
+						<div class="tab w-full text-center">
 							<a href="#signup" class="txt3">
 								Regresar
 							</a>
 						</div>
+						<div style="height:30px"></div>
+					</div>
 				</div>
 				<div id="abogado" style="display:none;">
-					Y aqui va lo del abogado :v
-					<div class="tab w-full text-center">
+					<div class="tab w-full">
+						<form class="login100-form validate-form">
+							<span class="login100-form-title p-b-34">
+								Ingresa la siguiente información
+							</span>
+							
+							Nombre completo
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa tu nombre">
+								<input class="input100" type="text" name="username" placeholder="nombre">
+								<span class="focus-input100"></span>
+							</div>
+							
+							Correo
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa un correo válido">
+								<input class="input100" type="email" name="email" placeholder="correo">
+								<span class="focus-input100"></span>
+							</div>
+							
+							Documentación
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Debes subir al menos un archivo" style="border:none;">
+								<input id="file-upload" onchange='cambiar()' type="file" multiple="true" style='display: none;'/>
+								
+								<label for="file-upload" class="login100-form-btn">
+									<i class="fas fa-cloud-upload-alt"></i> Subir archivos
+								</label>
+								
+								<div id="files" class="document-visualizer">
+								
+								</div>
+								<span class="focus-input100"></span>
+							</div>
+							
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Debes estar de acuerdo" style="border:none;">
+								<input class="input100" style="width:auto; height:auto; display:inline;" type="checkbox" name="agree"> Estoy de acuerdo con los <a href="" style="">términos y condiciones.</a></input>
+								<span class="focus-input100"></span>
+							</div>
+														
+							<div class="container-login100-form-btn">
+								<button class="login100-form-btn">
+									Sign in
+								</button>
+							</div>
+						</form>
+						
+						<div class="tab w-full text-center">
 							<a href="#signup" class="txt3">
 								Regresar
 							</a>
 						</div>
+						<div style="height:30px"></div>
+					</div>
 				</div>
 			</div>
 		</div>

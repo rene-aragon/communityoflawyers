@@ -271,7 +271,7 @@ iframe {
 .wrap-input100 {
   width: 100%;
   position: relative;
-  border: 1px solid #e6e6e6;
+  border: 1px solid #b3b3b3;
 }
 
 .rs1-wrap-input100,
@@ -297,6 +297,18 @@ iframe {
 
 input.input100 {
   height: 55px;
+}
+
+.subir{
+    padding: 5px 10px;
+    background: #f55d3e;
+    color:#fff;
+    border:0px solid #fff;
+}
+ 
+.subir:hover{
+    color:#fff;
+    background: #f7cb15;
 }
 
 /*---------------------------------------------*/
@@ -383,8 +395,6 @@ input.input100 {
   background: #333333;
 }
 
-
-
 /*------------------------------------------------------------------
 [ Responsive ]*/
 
@@ -430,6 +440,7 @@ input.input100 {
 
 /*------------------------------------------------------------------
 [ Alert validate ]*/
+
 
 .validate-input {
   position: relative;

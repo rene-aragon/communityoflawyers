@@ -22,7 +22,7 @@ $('.tab a').on('click', function (e) {
 
     $('.validate-form').on('submit',function(){
         var check = true;
-
+		
         for(var i=0; i<input.length; i++) {
             if(validate(input[i]) == false){
                 showValidate(input[i]);
@@ -51,6 +51,14 @@ $('.tab a').on('click', function (e) {
                 return false;
             }
         }
+		if($(input).attr('type') == 'checkbox')
+		{
+			if($(input).prop('checked') == false)
+			{
+				return false;
+			}
+		}	
+		
     }
 
     function showValidate(input) {
@@ -67,3 +75,20 @@ $('.tab a').on('click', function (e) {
     
 
 })(jQuery);
+
+
+function cambiar()
+{
+	var files = document.getElementById('file-upload');
+	console.log(files);
+	console.log(typeof(files));
+	document.getElementById('files').innerHTML += files.files[0].name;
+}
+
+function setFiles(file)
+{
+	var pdrs = file.name;
+	console.log(file.name);
+	
+}
+
