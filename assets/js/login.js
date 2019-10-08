@@ -29,6 +29,15 @@ $('.tab a').on('click', function (e) {
                 check=false;
             }
         }
+		
+		var files = document.getElementById('file-upload');
+		if('files' in files)
+		{
+			if(files.files.length == 0)
+			{
+				document.getElementById('files').innerHTML = "<b style='color:red;'>Debes adjuntar documentación</b>";
+			}
+		}
 
         return check;
     });
@@ -40,7 +49,8 @@ $('.tab a').on('click', function (e) {
         });
     });
 
-    function validate (input) {
+    function validate (input) 
+	{
         if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
             if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
                 return false;
@@ -57,8 +67,7 @@ $('.tab a').on('click', function (e) {
 			{
 				return false;
 			}
-		}	
-		
+		}
     }
 
     function showValidate(input) {
@@ -73,6 +82,7 @@ $('.tab a').on('click', function (e) {
         $(thisAlert).removeClass('alert-validate');
     }
     
+	
 
 })(jQuery);
 
@@ -80,15 +90,20 @@ $('.tab a').on('click', function (e) {
 function cambiar()
 {
 	var files = document.getElementById('file-upload');
+	if('files' in files)
+	{
+		if(files.files.length == 0)
+		{
+			document.getElementById('files').innerHTML = "<b style='color:red;'>Debes adjuntar documentación</b>";
+		}
+		else
+		{
+			document.getElementById('files').innerHTML = files.files[0].name;
+		}
+	}
+	
 	console.log(files);
 	console.log(typeof(files));
-	document.getElementById('files').innerHTML += files.files[0].name;
-}
-
-function setFiles(file)
-{
-	var pdrs = file.name;
-	console.log(file.name);
 	
 }
 
