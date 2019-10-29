@@ -5,7 +5,13 @@
 $('.tab a').on('click', function (e) {
   
   e.preventDefault();
-  console.log('JS')
+  //console.log('JS')
+  
+  $('.validate-form .input100').each(function(){
+           hideValidate(this);
+		   document.getElementById('files').innerHTML = "";
+        
+    });
   
   var target = $(this).attr('href');
 

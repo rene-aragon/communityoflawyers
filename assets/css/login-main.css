@@ -296,7 +296,7 @@ iframe {
 }
 
 input.input100 {
-  height: 55px;
+  height: 45px;
 }
 
 .subir{
@@ -507,4 +507,8 @@ input.input100 {
 }
 
 
+input[type="date"]::-webkit-inner-spin-button{
+    display: none;
+    -webkit-appearance: none;
+}
 
