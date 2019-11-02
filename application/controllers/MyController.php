@@ -15,7 +15,7 @@ class MyController extends CI_Controller{
 	}
 
 	public function test_get(){
-		$array = array("Hola","Mundo :D");
+		$array = array("Hola");
 		$this->response($array);
 	}
 }
