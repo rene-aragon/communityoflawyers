@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS  rol(
     valuePermission INT NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS  usuarios(
+CREATE TABLE IF NOT EXISTS  usuario(
     id_usuario INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(25) NOT NULL,
     apellidoP VARCHAR(20) NOT NULL,
@@ -21,3 +21,32 @@ CREATE TABLE IF NOT EXISTS  usuarios(
     ON DELETE SET NULL
 	ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO rol(
+    nombreRol,
+    valuePermission
+)
+VALUES(
+    "ADMINISTRADOR",
+    0
+)
+
+
+INSERT INTO usuario(
+    nombre,
+    apellidoP,
+    apellidoM,
+    email,
+    pass,
+    fechaNac,
+    rol_id
+)
+VALUES(
+    "BRYAN",
+    "TLATELPA",
+    "SILVA",
+    "ejemplo@gmail.com",
+    "123",
+    "2000-01-01",
+    1
+)
