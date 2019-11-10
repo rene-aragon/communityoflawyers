@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+header('Access-Control-Allow-Origin: *');
+
 
 use Restserver\libraries\REST_Controller;
 use Restserver\libraries\REST_Controller_Definitions;
