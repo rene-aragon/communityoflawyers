@@ -39,6 +39,51 @@
             return $this->db->query($query);
         }
 
+        function createAbo($nombre,$apellidoP,$apellidoM,$email,$pass,$fechaNac,$cuentaBanco,$costoBase,$descripcion,$cedulaPro){
+            $query =    "INSERT INTO usuario(
+                            nombre,
+                            apellidoP,
+                            apellidoM,
+                            email,
+                            pass,
+                            fechaNac,
+                            rol_id
+                        )
+                        VALUES(
+                            ".$this->db->escape($nombre).",
+                            ".$this->db->escape($apellidoP).",
+                            ".$this->db->escape($apellidoM).",
+                            ".$this->db->escape($email).",
+                            ".$this->db->escape($pass).",
+                            ".$this->db->escape($fechaNac).",
+                            2
+                        )
+                        ";
+            $result = $this->db->query($query);
+            if($result){
+                $utlimoID = $this->db->insert_id();
+                $query =    "INSERT INTO abogado(
+                                cuentaBanco,
+                                costoBase,
+                                descripcion,
+                                cedulaPro,
+                                usuario_id
+                            )
+                            VALUES(
+                                ".$this->db->escape($cuentaBanco).",
+                                ".$this->db->escape($costoBase).",
+                                ".$this->db->escape($descripcion).",
+                                ".$this->db->escape($cedulaPro).",
+                                ".$utlimoID."
+                            )
+                            ";
+                $result = $this->db->query($query);
+                if($result)
+                    $result = $utlimoID;
+            }
+            return $result;
+        }
+
         function createCli($nombre,$apellidoP,$apellidoM,$email,$pass,$fechaNac,$metodoPago){
             $query =    "INSERT INTO usuario(
                             nombre,
@@ -77,5 +122,7 @@
             }
             return $result;
         }
+
+        //=================FUNCIONES DE TIPO GET=================//
 
     }

@@ -32,6 +32,19 @@ CREATE TABLE IF NOT EXISTS  cliente(
 	ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS  abogado(
+    id_abogado INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    cuentaBanco INT,
+    costoBase DOUBLE,
+    descripcion TEXT,
+    cedulaPro INT,
+    usuario_id INT(11),
+    FOREIGN KEY (usuario_id)
+    REFERENCES usuario(id_usuario)
+    ON DELETE SET NULL
+	ON UPDATE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 INSERT INTO rol(
     nombreRol,
     valuePermission
