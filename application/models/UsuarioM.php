@@ -146,4 +146,25 @@
                         ";
             return $this->db->query($query);
         }
+
+        function getClientID($id){
+            $query =    "SELECT
+                            nombre,
+                            apellidoP,
+                            apellidoM,
+                            email,
+                            fechaNac,                            
+                            valuePermission,
+                            metodoPago
+                        FROM
+                            usuario
+                            LEFT JOIN(rol) ON usuario.rol_id = rol.id_rol 
+                            LEFT JOIN(cliente) ON usuario.id_usuario = cliente.usuario_id
+                        WHERE
+                            usuario.id_usuario = ".$this->db->escape($id)." AND
+                            rol.valuePermission = 2
+                        ";
+            return $this->db->query($query);
+        }
+
     }

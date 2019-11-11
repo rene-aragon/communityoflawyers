@@ -82,10 +82,25 @@ class Usuario extends CI_Controller{
 	}
 
 	//=================FUNCIONES DE TIPO GET=================//
-	public function AbogadoID_get(){
+	public function abogadoID_get(){
 		$id = $this->input->get('id');
         $this->load->model('UsuarioM');
         $array = $this->UsuarioM->getAbogadoID($id);
+        $result = $array->result_array();
+		if(!empty($result)){
+			$respuesta = array("respuesta" => "Se obtuvieron los datos correctamente.","resultado" => $result,"error" => 0);
+		}else if(empty($result)){
+			$respuesta = array("respuesta" => "Error compruebe su informacion", "error" => 11);
+		}else{
+			$respuesta = array("respuesta" => "Error al ejecutar su operación", "error" => 12);
+		}
+		$this->response($respuesta);
+	}
+
+	public function clienteID_get(){
+		$id = $this->input->get('id');
+        $this->load->model('UsuarioM');
+        $array = $this->UsuarioM->getClientID($id);
         $result = $array->result_array();
 		if(!empty($result)){
 			$respuesta = array("respuesta" => "Se obtuvieron los datos correctamente.","resultado" => $result,"error" => 0);
