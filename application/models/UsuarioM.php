@@ -124,5 +124,26 @@
         }
 
         //=================FUNCIONES DE TIPO GET=================//
-
+        function getAbogadoID($id){
+            $query =    "SELECT
+                            nombre,
+                            apellidoP,
+                            apellidoM,
+                            email,
+                            fechaNac,                            
+                            valuePermission,
+                            cuentaBanco,
+                            costoBase,
+                            descripcion,
+                            cedulaPro
+                        FROM
+                            usuario
+                            LEFT JOIN(rol) ON usuario.rol_id = rol.id_rol 
+                            LEFT JOIN(abogado) ON usuario.id_usuario = abogado.usuario_id
+                        WHERE
+                            usuario.id_usuario = ".$this->db->escape($id)." AND
+                            rol.valuePermission = 1
+                        ";
+            return $this->db->query($query);
+        }
     }
