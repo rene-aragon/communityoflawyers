@@ -1,23 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-header('Access-Control-Allow-Origin: *');
-header("Content-Type: multipart/form-data ; charset=utf-8");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
 
-use Restserver\libraries\REST_Controller;
-use Restserver\libraries\REST_Controller_Definitions;
 
-require APPPATH . '/libraries/REST_Controller_Definitions.php';
-require APPPATH . '/libraries/REST_Controller.php';
-require APPPATH . '/libraries/Format.php';
+
+
 
 class Usuario extends CI_Controller{
 
-	use REST_Controller {
-		REST_Controller::__construct as private __resTraitConstruct;
-    }
-    
+	public function __construct(){
+	 parent::__construct();
+	 header( 'X-Content-Type-Options: nosniff' );
+	 header( 'X-Frame-Options: SAMEORIGIN' );
+	 header( 'X-XSS-Protection: 1; mode=block' );
+
+ }
+
+
+
 	public function test_get(){
         $this->load->model('UsuarioM');
         $array = $this->UsuarioM->getUsuarioID();
@@ -26,20 +26,72 @@ class Usuario extends CI_Controller{
 	}
 
 	//=================FUNCIONES DE TIPO POST=================//
+	public function index(){
+		redirect('index.php', 'refresh');
+	}
+
+
 	public function login_post(){
-		$email = $this->input->post('email');
-		$contra = $this->input->post('contra');
 		$this->load->model('UsuarioM');
-		$result = $this->UsuarioM->validatedLogin($email,$contra);
-		$result = $result->result_array();
-		if(!empty($result)){
-			$respuesta = array("respuesta" => "Inicio de sesion exitoso","error" => 0);
-		}else if(empty($result)){
-			$respuesta = array("respuesta" => "Error comprueba sus credenciales", "error" => 11);
-		}else{
-			$respuesta = array("respuesta" => "Error al ejecutar su operación", "error" => 12);
+		$this->load->view('ingreso/login');
+		$estado = $this->input->post('botonSubmit',true);
+		if(isset($estado)){
+
+					$email = $this->input->post('email');
+					$contra = $this->input->post('pass');
+
+					$result = $this->UsuarioM->validatedLogin($email,$contra);
+					//$result = $result->result_array();
+					if(!empty($result)){
+						//$respuesta = array("respuesta" => "Inicio de sesion exitoso","error" => 0);
+
+						$result = $this->UsuarioM->getUsuarioID();
+						$result = $result->result_array();
+						//$result = $result->result_array();
+
+						echo('<script>
+
+							console.log('.json_encode($result).');
+							alert("Inicio de sesion exitoso");
+
+						</script>');
+						session_start();
+						$_SESSION['id'] = $result[0]['id_usuario'];
+						$_SESSION['email'] = $result[0]['email'];
+						$_SESSION['tipo'] = $result[0]['rol_id'];
+					}else if(empty($result)){
+						echo('<script>
+							alert("Inicio de sesion fallido");
+							console.log('.json_encode($result).');
+						</script>');
+					}
+					//$this->response($respuesta);
+					switch ($_SESSION['tipo']) {
+						case 2:
+							// code...
+
+
+							redirect('Abogado/welcome', 'refresh');
+						break;
+
+						case 3:
+							// code...
+
+							redirect('Cliente/welcome', 'refresh');
+						break;
+
+						default:
+							// code...
+
+							redirect('Administrador/welcome', 'refresh');
+						break;
+
+
+
+						}
+
 		}
-		$this->response($respuesta);
+
 	}
 
 	public function createAbogado_post(){
@@ -112,3 +164,4 @@ class Usuario extends CI_Controller{
 		$this->response($respuesta);
 	}
 }
+?>

@@ -1,7 +1,7 @@
 <?php
     class UsuarioM extends CI_Model {
-        
-        
+
+
         public function __construct(){
             parent::__construct();
             $this->load->database();
@@ -130,7 +130,7 @@
                             apellidoP,
                             apellidoM,
                             email,
-                            fechaNac,                            
+                            fechaNac,
                             valuePermission,
                             cuentaBanco,
                             costoBase,
@@ -138,7 +138,7 @@
                             cedulaPro
                         FROM
                             usuario
-                            LEFT JOIN(rol) ON usuario.rol_id = rol.id_rol 
+                            LEFT JOIN(rol) ON usuario.rol_id = rol.id_rol
                             LEFT JOIN(abogado) ON usuario.id_usuario = abogado.usuario_id
                         WHERE
                             usuario.id_usuario = ".$this->db->escape($id)." AND
@@ -153,12 +153,12 @@
                             apellidoP,
                             apellidoM,
                             email,
-                            fechaNac,                            
+                            fechaNac,
                             valuePermission,
                             metodoPago
                         FROM
                             usuario
-                            LEFT JOIN(rol) ON usuario.rol_id = rol.id_rol 
+                            LEFT JOIN(rol) ON usuario.rol_id = rol.id_rol
                             LEFT JOIN(cliente) ON usuario.id_usuario = cliente.usuario_id
                         WHERE
                             usuario.id_usuario = ".$this->db->escape($id)." AND
@@ -168,6 +168,8 @@
         }
 
         
+
+
 
     }
 ?>

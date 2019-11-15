@@ -52,7 +52,7 @@ class Caso extends CI_Controller{
         //$id = $this->CasoM->get_client_id_by_email($email);
         //$edo = 1;
         $this->load->model('CasoM');
-		$this->session
+		
         $data = $this->session->id;
 
 	
