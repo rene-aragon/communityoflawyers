@@ -67,9 +67,9 @@ class Abogado extends CI_Controller {
 
 	//=================FUNCIONES DE TIPO GET=================//
 	public function myInfo_get(){
-		$this->load->model('CasoM');
-		$id = $this->input->get('id');
-		$result = $this->CasoM->get_caso_ByID($id);
+		$this->load->model('AbogadoM');
+		$id = $this->session->id;
+		$result = $this->AbogadoM->get_Info($id);
 		if(!empty($result)){
 			$respuesta = array("respuesta" => "Consulta exitosa","result" => $result,"error" => 0);
 		}else if(empty($result)){

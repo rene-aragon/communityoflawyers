@@ -24,5 +24,15 @@
         }
         //=================FUNCIONES DE TIPO GET=================//
 
+        public function get_Info($data){
+            $this->db->select('*');
+            $this->db->from('usuario,abogado');
+            $this->db->where('abogado.usuario_id = usuario.id_usuario');
+            $this->db->where('usuario_id',$data);
+            $query = $this->db->get()->result_array();
+            return ($query);
+        }
+
     }
+    
 ?>
