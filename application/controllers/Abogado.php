@@ -79,4 +79,8 @@ class Abogado extends CI_Controller {
 		}
 		$this->response($respuesta);
 	}
+
+	//=================FUNCIONES QUE PUEDE REALIZAR ESTA CLASE=================//
+	
+
 }
