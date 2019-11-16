@@ -1,20 +1,32 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+header('Access-Control-Allow-Origin: *');
+header("Content-Type: multipart/form-data ; charset=utf-8");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
+
+use Restserver\libraries\REST_Controller;
+use Restserver\libraries\REST_Controller_Definitions;
+
+require APPPATH . '/libraries/REST_Controller_Definitions.php';
+require APPPATH . '/libraries/REST_Controller.php';
+require APPPATH . '/libraries/Format.php';
 
 
 
 
 class Usuario extends CI_Controller{
+	//Quitar despues de testear================================
+	// public function __construct(){
+	//  parent::__construct();
 
-	public function __construct(){
-	 parent::__construct();
-	 header( 'X-Content-Type-Options: nosniff' );
-	 header( 'X-Frame-Options: SAMEORIGIN' );
-	 header( 'X-XSS-Protection: 1; mode=block' );
+	 
+	//  header( 'X-Content-Type-Options: nosniff' );
+	//  header( 'X-Frame-Options: SAMEORIGIN' );
+	//  header( 'X-XSS-Protection: 1; mode=block' );
 
- }
+ 	// }
 
 
 
@@ -29,6 +41,11 @@ class Usuario extends CI_Controller{
 	public function index(){
 		redirect('index.php', 'refresh');
 	}
+
+	//Revisar si se quita
+	use REST_Controller {
+		REST_Controller::__construct as private __resTraitConstruct;
+    }
 
 
 	public function login_post(){
@@ -92,6 +109,26 @@ class Usuario extends CI_Controller{
 
 		}
 
+	}
+
+	public function updateInfoUser_post(){
+		$this->load->model('UsuarioM');
+		//$id = $this->session->id;	
+		$id = 3;
+		$data = array(
+			'nombre' => $this->input->post('nombre'),
+            'apellidoP' => $this->input->post('apellidoP'),
+            'apellidoM' => $this->input->post('apellidoM'),
+			'email' => $this->input->post('email'),
+			'fechaNac' => $this->input->post('fechaNac')
+        );
+		$result = $this->UsuarioM->updateUser($id,$data);
+		if($result != false){
+			$respuesta = array("respuesta" => "Se actualizo correctamente la informacion del usuario.","error" => 0);
+		}else{
+			$respuesta = array("respuesta" => "Error compruebe su informacion", "error" => 11);
+		}
+		$this->response($respuesta);
 	}
 
 	public function createAbogado_post(){

@@ -39,6 +39,21 @@
             return $this->db->query($query);
         }
 
+        public function updateUser($id,$data){
+            $query =    "UPDATE
+                            usuario
+                        SET
+                            nombre = ".$this->db->escape($data['nombre']).",
+                            apellidoP = ".$this->db->escape($data['apellidoP']).",
+                            apellidoM = ".$this->db->escape($data['apellidoM']).",
+                            email = ".$this->db->escape($data['email']).",
+                            fechaNac = ".$this->db->escape($data['fechaNac'])."                            
+                        WHERE
+                            id_usuario = ".$this->db->escape($id)."
+                        ";
+            return $this->db->query($query);
+        }
+
         function createAbo($nombre,$apellidoP,$apellidoM,$email,$pass,$fechaNac,$cuentaBanco,$costoBase,$descripcion,$cedulaPro){
             $query =    "INSERT INTO usuario(
                             nombre,
