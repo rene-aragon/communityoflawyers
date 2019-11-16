@@ -19,14 +19,18 @@ USE `colaw`;
 -- Dumping structure for table colaw.abogado
 CREATE TABLE IF NOT EXISTS `abogado` (
   `id_abogado` int(11) NOT NULL AUTO_INCREMENT,
-  `cuentaBanco` int(11) DEFAULT NULL,
-  `costoBase` double DEFAULT NULL,
-  `descripcion` text DEFAULT NULL,
-  `cedulaPro` int(11) DEFAULT NULL,
-  `usuario_id` int(11) DEFAULT NULL,
+  `cuentaBanco` int(11) NOT NULL,
+  `costoBase` double NOT NULL,
+  `descripcion` text NOT NULL,
+  `cedulaPro` varchar(255) NOT NULL DEFAULT '',
+  `Column 10` varchar(255) NOT NULL,
+  `categoria1` int(11) NOT NULL DEFAULT 1,
+  `categoria2` int(11) DEFAULT NULL,
+  `categoria3` int(11) DEFAULT NULL,
+  `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id_abogado`),
-  KEY `usuario_id` (`usuario_id`),
-  CONSTRAINT `abogado_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON DELETE SET NULL ON UPDATE CASCADE
+  KEY `abogado_ibfk_1` (`usuario_id`),
+  CONSTRAINT `abogado_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table colaw.abogado: ~0 rows (approximately)
@@ -54,20 +58,28 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `categoria_id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`categoria_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table colaw.categoria: ~0 rows (approximately)
+-- Dumping data for table colaw.categoria: ~7 rows (approximately)
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT IGNORE INTO `categoria` (`categoria_id`, `nombre`) VALUES
+	(1, 'CIVIL'),
+	(2, 'LABORAL'),
+	(3, 'FAMILIAR'),
+	(4, 'MERCANTIL'),
+	(5, 'PENAL'),
+	(6, 'PROCESAL'),
+	(7, 'INMOBILIARIO');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 
 -- Dumping structure for table colaw.cliente
 CREATE TABLE IF NOT EXISTS `cliente` (
   `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
   `metodoPago` varchar(25) NOT NULL,
-  `usuario_id` int(11) DEFAULT NULL,
+  `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id_cliente`),
-  KEY `usuario_id` (`usuario_id`),
-  CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON DELETE SET NULL ON UPDATE CASCADE
+  KEY `cliente_ibfk_1` (`usuario_id`),
+  CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table colaw.cliente: ~0 rows (approximately)
@@ -82,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `rol` (
   PRIMARY KEY (`id_rol`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
--- Dumping data for table colaw.rol: ~3 rows (approximately)
+-- Dumping data for table colaw.rol: ~4 rows (approximately)
 /*!40000 ALTER TABLE `rol` DISABLE KEYS */;
 INSERT IGNORE INTO `rol` (`id_rol`, `nombreRol`, `valuePermission`) VALUES
 	(1, 'ADMINISTRADOR', 0),
@@ -99,16 +111,18 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `email` varchar(50) NOT NULL,
   `pass` varchar(100) NOT NULL,
   `fechaNac` date NOT NULL,
-  `rol_id` int(11),
+  `estado` int(11) NOT NULL DEFAULT 1,
+  `imagen` varchar(255) NOT NULL DEFAULT '1',
+  `rol_id` int(11) NOT NULL,
   PRIMARY KEY (`id_usuario`),
-  KEY `rol_id` (`rol_id`),
-  CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id_rol`) ON DELETE SET NULL ON UPDATE CASCADE
+  KEY `usuario_ibfk_1` (`rol_id`),
+  CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id_rol`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table colaw.usuario: ~0 rows (approximately)
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT IGNORE INTO `usuario` (`id_usuario`, `nombre`, `apellidoP`, `apellidoM`, `email`, `pass`, `fechaNac`, `rol_id`) VALUES
-	(1, 'BRYAN', 'TLATELPA', 'SILVA', 'ejemplo@gmail.com', '123', '2000-01-01', 1);
+INSERT IGNORE INTO `usuario` (`id_usuario`, `nombre`, `apellidoP`, `apellidoM`, `email`, `pass`, `fechaNac`, `estado`, `imagen`, `rol_id`) VALUES
+	(1, 'BRYAN', 'TLATELPA', 'SILVA', 'ejemplo@gmail.com', '123456', '2000-01-01', 1, '1', 1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
