@@ -39,6 +39,32 @@
             return $this->db->query($query);
         }
 
+        public function updateUser($id,$data){
+            $query =    "UPDATE
+                            usuario
+                        SET
+                            nombre = ".$this->db->escape($data['nombre']).",
+                            apellidoP = ".$this->db->escape($data['apellidoP']).",
+                            apellidoM = ".$this->db->escape($data['apellidoM']).",
+                            email = ".$this->db->escape($data['email']).",
+                            fechaNac = ".$this->db->escape($data['fechaNac'])."                            
+                        WHERE
+                            id_usuario = ".$this->db->escape($id)."
+                        ";
+            return $this->db->query($query);
+        }
+
+        public function changePass($id,$passNew){
+            $query =    "UPDATE
+                            usuario
+                        SET
+                            pass = ".$this->db->escape($passNew)."
+                        WHERE
+                            id_usuario = ".$this->db->escape($id)."
+                        ";
+            return $this->db->query($query);
+        }
+
         function createAbo($nombre,$apellidoP,$apellidoM,$email,$pass,$fechaNac,$cuentaBanco,$costoBase,$descripcion,$cedulaPro){
             $query =    "INSERT INTO usuario(
                             nombre,
@@ -163,6 +189,18 @@
                         WHERE
                             usuario.id_usuario = ".$this->db->escape($id)." AND
                             rol.valuePermission = 2
+                        ";
+            return $this->db->query($query);
+        }
+
+        function verifyPassCurrently($id,$passCurrently){
+            $query =    "SELECT
+                            id_usuario
+                        FROM
+                            usuario
+                        WHERE
+                            pass = ".$this->db->escape($passCurrently)." AND
+                            id_usuario = ".$this->db->escape($id)."
                         ";
             return $this->db->query($query);
         }
