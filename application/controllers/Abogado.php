@@ -1,18 +1,20 @@
-<?php
+ <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-header('Access-Control-Allow-Origin: *');
-header("Content-Type: multipart/form-data ; charset=utf-8");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
 
-use Restserver\libraries\REST_Controller;
-use Restserver\libraries\REST_Controller_Definitions;
 
-require APPPATH . '/libraries/REST_Controller_Definitions.php';
-require APPPATH . '/libraries/REST_Controller.php';
-require APPPATH . '/libraries/Format.php';
 class Abogado extends CI_Controller {
+
+  public function __construct(){
+	 parent::__construct();
+
+
+	 header( 'X-Content-Type-Options: nosniff' );
+	 header( 'X-Frame-Options: SAMEORIGIN' );
+	 header( 'X-XSS-Protection: 1; mode=block' );
+
+ 	}
 
 	/**
 	 * Index Page for this controller.
@@ -30,26 +32,108 @@ class Abogado extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 
-  public function welcome(){
-  //  $this->load->model('Admin_model');
-		$this->load->view('ingreso/index');
-
-	}
 
 
-	public function index()
-	{
-		$this->load->view('welcome_message');
-	}
 
-	use REST_Controller {
-		REST_Controller::__construct as private __resTraitConstruct;
-    }
 
 	//=================FUNCIONES DE TIPO POST=================//
+
+  public function welcome(){
+  //  $this->load->model('Admin_model');
+
+    $this->load->view('abogado/content');
+
+
+  }
+
+
+  public function index()
+  {
+
+      $this->load->model('AbogadoM');
+      $id = $_SESSION['id'];
+      $data1=$this->AbogadoM->get_casos_pendientes($id);
+      $data2=$this->AbogadoM->get_casos_activos($id);
+      $data3=$this->AbogadoM->get_casos_rechazados($id);
+      $data4=$this->AbogadoM->get_casos_completos($id);
+      $data  = array('data1' => $data1,
+                      'data2' => $data2,
+                      'data3' => $data3,
+                      'data4' => $data4,
+      );
+
+      $this->load->view('abogado/content',$data);
+  }
+
+  public function aceptados()
+  {
+
+      $this->load->model('AbogadoM');
+      $id = $_SESSION['id'];
+
+      $data2=$this->AbogadoM->get_casos_activos($id);
+
+      $data  = array('data1' => $data2,
+
+      );
+
+      $this->load->view('abogado/aceptados',$data);
+  }
+
+  public function rechazados()
+  {
+
+      $this->load->model('AbogadoM');
+      $id = $_SESSION['id'];
+
+      $data2=$this->AbogadoM->get_casos_rechazados($id);
+      $data  = array('data1' => $data2,
+      );
+
+      $this->load->view('abogado/rechazados',$data);
+  }
+
+
+  public function completados()
+  {
+
+      $this->load->model('AbogadoM');
+      $id = $_SESSION['id'];
+
+      $data2=$this->AbogadoM->get_casos_completos($id);
+      $data  = array('data1' => $data2,
+      );
+
+      $this->load->view('abogado/completados',$data);
+  }
+
+  public function aceptar_caso($id){
+    $this->load->model('CasoM');
+    $this->CasoM->aceptar_caso($id);
+    redirect('Abogado/aceptados', 'refresh');
+  }
+
+  public function rechazar_caso($id){
+    $this->load->model('CasoM');
+    $this->CasoM->rechazar_caso($id);
+    redirect('Abogado/rechazados', 'refresh');
+  }
+
+  public function completar_caso($id){
+    $this->load->model('CasoM');
+    $this->CasoM->completar_caso($id);
+    redirect('Abogado/completados', 'refresh');
+  }
+
+
+
+  public function perfil(){
+
+  }
+
 	public function updateMyInfoA_post(){
         $this->load->model('AbogadoM');
-		$id = $this->session->id;	
+		$id = $this->session->id;
 		$data = array(
 			'cuentaBanco' => $this->input->post('cuentaBanco'),
             'costoBase' => $this->input->post('costoBase'),
@@ -81,6 +165,7 @@ class Abogado extends CI_Controller {
 	}
 
 	//=================FUNCIONES QUE PUEDE REALIZAR ESTA CLASE=================//
-	
+
 
 }
+?>

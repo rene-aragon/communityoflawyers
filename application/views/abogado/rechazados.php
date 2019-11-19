@@ -74,15 +74,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                             </div>
                         </div>
                     </li>
-                    <li class="xn-title">Navigation</li>
+                    <li class="xn-title">Perfil</li>
+
+
 
                     <li class="xn-openable">
-                        <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Perfil</span></a>
+                        <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Pages</span></a>
                         <ul>
-                            <li><a href="<?php echo base_url('abogado/index')?>"><span class="fa fa-image"></span> Pendientes</a></li>
-                            <li><a href="<?php echo base_url('abogado/aceptados')?>"><span class="fa fa-user"></span> Aceptados</a></li>
-                            <li><a href="<?php echo base_url('abogado/rechazados')?>"><span class="fa fa-users"></span> Rechazados</a></li>
-                            <li><a href="<?php echo base_url('abogado/completados')?>"><span class="fa fa-sort-alpha-desc"></span> Completados</a></li>
+                          <li><a href="<?php echo base_url('abogado/index')?>"><span class="fa fa-image"></span> Pendientes</a></li>
+                          <li><a href="<?php echo base_url('abogado/aceptados')?>"><span class="fa fa-user"></span> Aceptados</a></li>
+                          <li><a href="<?php echo base_url('abogado/rechazados')?>"><span class="fa fa-users"></span> Rechazados</a></li>
+                          <li><a href="<?php echo base_url('abogado/completados')?>"><span class="fa fa-sort-alpha-desc"></span> Completados</a></li>
+
 
 
                         </ul>
@@ -143,7 +146,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                         <a href="tables.html"><span class="fa fa-table"></span> <span class="xn-text">Tables</span></a>
                         <ul>
                             <li><a href="table-basic.html"><span class="fa fa-align-justify"></span> Basic</a></li>
-                            <li  ><a href="table-datatables.html"><span class="fa fa-sort-alpha-desc"></span> Data Tables</a></li>
+                            <li class="active"><a href="table-datatables.html"><span class="fa fa-sort-alpha-desc"></span> Data Tables</a></li>
                             <li><a href="table-export.html"><span class="fa fa-download"></span> Export Tables</a></li>
                         </ul>
                     </li>
@@ -339,8 +342,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                                                <th style="text-align:center;">Nombre</th>
                                                <th style="text-align:center;">Titulo</th>
                                                <th style="text-align:center;">Fecha</th>
-                                               <th style="text-align:center;">Aprobar</th>
-                                               <th style="text-align:center;">Denegar</th>
+
                                                </tr>
                                            </thead>
                                            <tbody>
@@ -353,8 +355,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                                                          <td style="text-align:center;">'.$x["nombre"].' '.$x["apellido"].'</td>
                                                          <td style="text-align:center;">'.$x["titulo"].'</td>
                                                          <td style="text-align:center;">'.$x["fecha"].'</td>
-                                                         <td style="text-align:center;"><a href="'.base_url('abogado/aceptar_caso/'.$x["id_caso"]).'"  ><i class="fa fa-check"></i></a></td>
-                                                         <td style="text-align:center;"><a href="'.base_url('abogado/rechazar_caso/'.$x["id_caso"]).'" ><i class="fa fa-times"></i></a></td>
                                                      </tr>
 
                                                ');
@@ -371,7 +371,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                             </div>
                             <!-- START CONTENT FRAME BODY -->
 
-                            <!-- END CONTENT FRAME BODY -->s
+                            <!-- END CONTENT FRAME BODY -->
 
                         </div>
                     </div>

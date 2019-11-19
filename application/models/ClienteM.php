@@ -1,7 +1,7 @@
 <?php
     class ClienteM extends CI_Model {
-        
-        
+
+
         public function __construct(){
             parent::__construct();
             $this->load->database();
@@ -30,6 +30,14 @@
             return ($query);
         }
 
+        public function get_abogados(){
+          $this->db->select('*');
+          $this->db->from('usuarios');
+          $this->db->where('rol_id',1);
+          $query = $this->db->get()->result_array();
+          return ($query);
+        }
+
     }
-    
+
 ?>

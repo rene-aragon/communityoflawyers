@@ -20,7 +20,7 @@ class Usuario extends CI_Controller{
 	public function __construct(){
 	 parent::__construct();
 
-	 
+
 	 header( 'X-Content-Type-Options: nosniff' );
 	 header( 'X-Frame-Options: SAMEORIGIN' );
 	 header( 'X-XSS-Protection: 1; mode=block' );
@@ -41,15 +41,26 @@ class Usuario extends CI_Controller{
 		redirect('index.php', 'refresh');
 	}
 
-	//Revisar si se quita
-	use REST_Controller {
-		REST_Controller::__construct as private __resTraitConstruct;
-    }
+
+	//quitar el rest
 
 
 	public function login_post(){
+		session_destroy();
 		$this->load->model('UsuarioM');
-		$this->load->view('ingreso/login');
+		$data=array(
+			'data2' => $this->UsuarioM->get_categorias()
+		);
+
+								echo('<script>
+
+									console.log('.json_encode($data).');
+
+
+								</script>');
+
+		$this->load->view('ingreso/login',$data);
+
 		$estado = $this->input->post('botonSubmit',true);
 		if(isset($estado)){
 
@@ -57,12 +68,13 @@ class Usuario extends CI_Controller{
 					$contra = $this->input->post('pass');
 
 					$result = $this->UsuarioM->validatedLogin($email,$contra);
+					$result = $result->result_array();
 					//$result = $result->result_array();
-					if(!empty($result)){
+					if(!empty($result) && ($result[0]['estado'] == 1)){
 						//$respuesta = array("respuesta" => "Inicio de sesion exitoso","error" => 0);
 
-						$result = $this->UsuarioM->getUsuarioID();
-						$result = $result->result_array();
+						$r = $this->UsuarioM->get_user($email);
+
 						//$result = $result->result_array();
 
 						echo('<script>
@@ -72,39 +84,47 @@ class Usuario extends CI_Controller{
 
 						</script>');
 						session_start();
-						$_SESSION['id'] = $result[0]['id_usuario'];
-						$_SESSION['email'] = $result[0]['email'];
-						$_SESSION['tipo'] = $result[0]['rol_id'];
-					}else if(empty($result)){
+						$_SESSION['id'] = $r[0]['id_usuario'];
+						$_SESSION['nombre'] = $r[0]['nombre']." ".$r[0]['apellidoP'];
+						$_SESSION['email'] = $r[0]['email'];
+						$_SESSION['tipo'] = $r[0]['rol_id'];
+						$_SESSION['estado'] = $r[0]['estado'];
+						$_SESSION['imagen'] = $r[0]['imagen'];
+					}
+					else{
 						echo('<script>
 							alert("Inicio de sesion fallido");
 							console.log('.json_encode($result).');
 						</script>');
+						redirect('index.php', 'refresh');
 					}
-					//$this->response($respuesta);
-					switch ($_SESSION['tipo']) {
-						case 2:
-							// code...
+					//$this->response($respuesta)
+					switch ($r[0]['rol_id']) {
+            case 2:
+              // code...
 
 
-							redirect('Abogado/welcome', 'refresh');
-						break;
+              redirect('abogado/index', 'refresh');
+            break;
 
-						case 3:
-							// code...
+            case 3:
+              // code...
 
-							redirect('Cliente/welcome', 'refresh');
-						break;
+              redirect('cliente/welcome', 'refresh');
+            break;
 
-						default:
-							// code...
+            default:
+              // code...
 
-							redirect('Administrador/welcome', 'refresh');
-						break;
+              redirect('administrador/index', 'refresh');
+            break;
+          }
 
 
 
-						}
+
+
+
 
 		}
 
@@ -112,7 +132,7 @@ class Usuario extends CI_Controller{
 
 	public function updateInfoUser_post(){
 		$this->load->model('UsuarioM');
-		$id = $this->session->id;	
+		$id = $this->session->id;
 		$data = array(
 			'nombre' => $this->input->post('nombre'),
             'apellidoP' => $this->input->post('apellidoP'),
@@ -131,7 +151,7 @@ class Usuario extends CI_Controller{
 
 	public function updatePassword_post(){
 		$this->load->model('UsuarioM');
-		//$id = $this->session->id;	
+		//$id = $this->session->id;
 		$id = 3;
 		$passCurrently = $this->input->post('passCurrently');
 		$array = $this->UsuarioM->verifyPassCurrently($id,$passCurrently);
@@ -153,43 +173,231 @@ class Usuario extends CI_Controller{
 	}
 
 	public function createAbogado_post(){
-		$nombre = $this->input->post('nom');
-		$apellidoP = $this->input->post('apeP');
-		$apellidoM = $this->input->post('apeM');
-		$email = $this->input->post('email');
-		$pass = $this->input->post('contra');
-		$fechaNac = $this->input->post('fechaN');
-		$cuentaBanco = $this->input->post('cuentBanc');
-		$costoBase = $this->input->post('costBas');
-		$descripcion = $this->input->post('descri');
-		$cedulaPro = $this->input->post('ceduPro');
+
 		$this->load->model('UsuarioM');
-		$resultId = $this->UsuarioM->createAbo($nombre,$apellidoP,$apellidoM,$email,$pass,$fechaNac,$cuentaBanco,$costoBase,$descripcion,$cedulaPro);
-		if($resultId != false){
-			$respuesta = array("respuesta" => "Se creo el abogado exitosamente","id:" => $resultId,"error" => 0);
-		}else{
-			$respuesta = array("respuesta" => "Error al crear cliente", "error" => 11);
-		}
-		$this->response($respuesta);
+
+
+
+			 $config['upload_path']          = './public/uploads/';
+			 $config['allowed_types']        = 'gif|jpg|png|pdf';
+			 $config['max_size']             = 4096;
+			 $config['max_width']            = 4096;
+			 $config['max_height']           = 4096;
+
+			 $this->load->library('upload', $config);
+
+
+
+			 $data1 = array();
+			 $data2 = array();
+			 $data3 = array();
+			 //$estado = $this->input->post(botonSubmit3,true);
+			 $estado = 1;
+
+			 if($estado){
+				 $foto = $this->upload->do_upload('fotoA');
+
+				 if ($foto) {
+				 	// code...
+
+						$data1 = array('upload_data' => $this->upload->data());
+						$cedula = $this->upload->do_upload('cdpro');
+
+						if ($cedula) {
+							// code...
+								$data2 = array('upload_data' => $this->upload->data());
+								$curriculum = $this->upload->do_upload('cv');
+
+								if ($curriculum) {
+									// code...
+										$data3 = array('upload_data' => $this->upload->data());
+
+										$y = $data1['upload_data']['full_path'];
+										$y = substr($y,35);
+
+										$y2 = $data2['upload_data']['full_path'];
+										$y2 = substr($y2,35);
+
+										$y3 = $data3['upload_data']['full_path'];
+										$y3 = substr($y3,35);
+
+										$datam = array (
+											'nombre' => $this->input->post('nombreA',true),
+											'apellidoP' => $this->input->post('appatA',true),
+											'apellidoM' => $this->input->post('apmatA',true),
+											'email' => $this->input->post('emailA',true),
+											'pass' => $this->input->post('passA',true),
+											'fechaNac' => $this->input->post('fechanA',true),
+											'estado' => 0,
+											'imagen' => $y,
+											'rol_id' => 2
+										);
+
+										$id = $this->UsuarioM->create_user($datam);
+
+										$cat2 = $this->input->post('cat2',true);
+
+										if($cat2 == 0){
+											$cat2 == null;
+										}
+
+										$cat3 = $this->input->post('cat3',true);
+
+										if($cat3 == 0){
+											$cat3 == null;
+										}
+
+										$datab = array (
+
+											'cuentaBanco' => $this->input->post('cuentaB',true),
+											'costoBase' => $this->input->post('costoB',true),
+											'cedula' => $y2,
+											'curriculum' => $y3,
+											'categoria1' => $this->input->post('cat1',true),
+											'categoria2' => $cat2,
+											'categoria3' => $cat3,
+											'usuario_id' => $id
+										);
+
+											$id = $this->UsuarioM->crearAbogado($datab);
+
+
+										echo "<script>
+		 								alert('Gracias por registrarse, espere a que sea activado por el administrador');
+		 							 </script>";
+
+		 							 redirect('index.php', 'refresh');
+
+								}
+								else {
+									// code...
+									$error = array('error' => $this->upload->display_errors());
+
+								 echo "<script>
+									alert(' Error en CV " . json_encode($error) . "');
+								 </script>";
+
+								 redirect('Usuario/login_post', 'refresh');
+								}
+
+						}
+						else {
+							// code...
+							$error = array('error' => $this->upload->display_errors());
+
+						 echo "<script>
+							alert(' Error en cedula " . json_encode($error) . "');
+						 </script>";
+
+						 redirect('Usuario/login_post', 'refresh');
+						}
+
+				 }
+				 else {
+				 	// code...
+					$error = array('error' => $this->upload->display_errors());
+
+				 echo "<script>
+					alert(' Error en foto " . json_encode($error) . "');
+				 </script>";
+
+				redirect('Usuario/login_post', 'refresh');
+				 }
+
+			 }
+
+
+
 	}
 
 	public function createClient_post(){
-		$nombre = $this->input->post('nom');
-		$apellidoP = $this->input->post('apeP');
-		$apellidoM = $this->input->post('apeM');
-		$email = $this->input->post('email');
-		$pass = $this->input->post('contra');
-		$fechaNac = $this->input->post('fechaN');
-		$metodoPago = $this->input->post('metoPago');
+
 		$this->load->model('UsuarioM');
-		$resultId = $this->UsuarioM->createCli($nombre,$apellidoP,$apellidoM,$email,$pass,$fechaNac,$metodoPago);
-		if($resultId != false){
-			$respuesta = array("respuesta" => "Se creo el cliente exitosamente","id:" => $resultId,"error" => 0);
-		}else{
-			$respuesta = array("respuesta" => "Error al crear cliente", "error" => 11);
-		}
-		$this->response($respuesta);
+
+
+
+			 $config['upload_path']          = './public/uploads/';
+			 $config['allowed_types']        = 'gif|jpg|png|pdf';
+			 $config['max_size']             = 4096;
+			 $config['max_width']            = 4096;
+			 $config['max_height']           = 4096;
+
+			 $this->load->library('upload', $config);
+
+
+
+			 $data1 = array();
+			 $data2 = array();
+			 $data3 = array();
+			 //$estado = $this->input->post(botonSubmit3,true);
+			 $estado = 1;
+
+			 if($estado){
+				 $foto = $this->upload->do_upload('fotoC');
+
+				 if ($foto) {
+				 	// code...
+
+						$data1 = array('upload_data' => $this->upload->data());
+
+
+										$y = $data1['upload_data']['full_path'];
+										$y = substr($y,35);
+
+
+
+										$datam = array (
+											'nombre' => $this->input->post('nombreC',true),
+											'apellidoP' => $this->input->post('appatC',true),
+											'apellidoM' => $this->input->post('apmatC',true),
+											'email' => $this->input->post('emailC',true),
+											'pass' => $this->input->post('passC',true),
+											'fechaNac' => $this->input->post('fechanC',true),
+											'estado' => 1,
+											'imagen' => $y,
+											'rol_id' => 1
+										);
+
+										$id = $this->UsuarioM->create_user($datam);
+
+
+
+										$datab = array (
+											'metodoPago' => $this->input->post('pago',true),
+											'usuario_id' => $id
+
+										);
+
+											$id = $this->UsuarioM->crearCliente($datab);
+
+
+										echo "<script>
+		 								alert('Gracias por registrarse, espere a que sea activado por el administrador');
+		 							 </script>";
+
+		 							 redirect('index.php', 'refresh');
+
+				 }
+
+
+				 else {
+				 	// code...
+					$error = array('error' => $this->upload->display_errors());
+
+				 echo "<script>
+					alert(' Error en foto " . json_encode($error) . "');
+				 </script>";
+
+				redirect('Usuario/login_post', 'refresh');
+				 }
+
+			 }
+
+
+
 	}
+
+
 
 	//=================FUNCIONES DE TIPO GET=================//
 	public function abogadoID_get(){

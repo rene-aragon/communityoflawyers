@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li class="nav-item"><a class="nav-link" href="#section-attorneys">Logros</a></li>
             <li class="nav-item"><a class="nav-link" href="#section-testimonials">Servicios</a></li>
             <li class="nav-item"><a class="nav-link" href="#section-contact">Contacto</a></li>
-			<li class="nav-item"><a class="nav-link" href="<?php echo(base_url('Usuario/login'))?>" >Iniciar Sesion</a></li>
+			<li class="nav-item"><a class="nav-link" href="<?php echo(base_url('Usuario/login_post'))?>" >Iniciar Sesion</a></li>
           </ul>
         </div>
       </div>

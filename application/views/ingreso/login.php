@@ -149,7 +149,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             <?php
               $attributes = array('class' => "login100-form validate-form", 'id' => 'form');
-              echo form_open('Usuario/createClient_post', $attributes);
+              echo form_open_multipart('Usuario/createClient_post', $attributes);
             ?>
 						<form class="login100-form validate-form">
 							<span class="login100-form-title p-b-34">
@@ -192,13 +192,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<span class="focus-input100"></span>
 							</div>
 
+							Tipo de pago
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa un tipo de pago">
+								<input class="input100" type="text" name="pago" placeholder="tipo de pago">
+								<span class="focus-input100"></span>
+							</div>
+
 							Foto
 							<div class="wrap-input100 validate-input m-b-20" data-validate="Debes subir al menos un archivo" style="border:none;">
-								<input id="file-uploadC" onchange='cambiar()' type="file" name="fotoC"  style='display: none;'/>
+								<input id="file-uploadC" onchange='cambiarC()' type="file" name="fotoC"  />
 
-								<label for="file-uploadC" class="login100-form-btn">
-									<i class="fas fa-cloud-upload-alt"></i> Subir archivos
-								</label>
+
 							</div>
 
 							<div class="wrap-input100 validate-input m-b-20" data-validate="Debes estar de acuerdo" style="border:none;">
@@ -232,7 +236,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="tab w-full">
             <?php
               $attributes = array('class' => "login100-form validate-form", 'id' => 'form2');
-              echo form_open('Usuario/createAbogado_post', $attributes);
+              echo form_open_multipart('Usuario/createAbogado_post', $attributes);
             ?>
 							<span class="login100-form-title p-b-34">
 								Ingresa la siguiente información
@@ -251,8 +255,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</div>
 
 							Apellido materno
-							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa tu apellido paterno">
-								<input class="input100" type="text" name="apmatA" placeholder="apellido paterno">
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa tu apellido materno">
+								<input class="input100" type="text" name="apmatA" placeholder="apellido materno">
 								<span class="focus-input100"></span>
 							</div>
 
@@ -275,8 +279,76 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<span class="focus-input100"></span>
 							</div>
 
+							Cuenta bancaria
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa tu cuenta bancaria">
+								<input class="input100" type="text" name="cuentaB" placeholder="cuenta bancaria">
+								<span class="focus-input100"></span>
+							</div>
+
+							Costo base
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa tu costo base">
+								<input class="input100" type="text" name="costoB" placeholder="costo base">
+								<span class="focus-input100"></span>
+							</div>
+
+							Categoria 1
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa la categoria de derecho">
+							  <select class="input100"  name="cat1">
+							    <?php
+
+							      foreach ($data2 as $r) {
+							        // code...
+							        echo('
+							          <option value = "'.$r['categoria_id'].'">
+							            '.$r['nombre'].'
+							          </option>
+							        ');
+							      }
+							    ?>
+							  </select>
+							  <span class="focus-input100"></span>
+							</div>
+
+							Categoria 2
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa la categoria de derecho">
+							  <select class="input100"  name="cat2">
+							    <?php
+
+							      foreach ($data2 as $r) {
+							        // code...
+							        echo('
+							          <option value = "'.$r['categoria_id'].'">
+							            '.$r['nombre'].'
+							          </option>
+							        ');
+							      }
+							    ?>
+							    <option selected value="0"></option>
+							  </select>
+							  <span class="focus-input100"></span>
+							</div>
+
+							Categoria 3
+							<div class="wrap-input100 validate-input m-b-20" data-validate="Ingresa la categoria de derecho">
+							  <select class="input100"  name="cat3">
+							    <?php
+
+							      foreach ($data2 as $r) {
+							        // code...
+							        echo('
+							          <option value = "'.$r['categoria_id'].'">
+							            '.$r['nombre'].'
+							          </option>
+							        ');
+							      }
+							    ?>
+							    <option selected value="0"></option>
+							  </select>
+							  <span class="focus-input100"></span>
+							</div>
+
 							Foto
-							<div class="wrap-input100 validate-input m-b-20" data-validate="Debes subir al menos un archivo" style="border:none;">
+							<div class="wrap-input100 validate-input m-b-20"  style="border:none;">
 								<input id="file-uploadA1" onchange='cambiar()' type="file" name="fotoA"  style='display: none;'/>
 
 								<label for="file-uploadA1" class="login100-form-btn">
@@ -284,29 +356,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</label>
 							</div>
 
+						</br>
+
+							<div id="files" class="document-visualizer text-center">
+								<span class="focus-input100"></span>
+							</div>
+
+							</br>
+
 								Cedula Profesional
-								<div class="wrap-input100 validate-input m-b-20" data-validate="Debes subir al menos un archivo" style="border:none;">
-									<input id="file-uploadA2" onchange='cambiar()' type="file" name="cdpro" style='display: none;'/>
+								<div class="wrap-input100 validate-input m-b-20"  style="border:none;">
+									<input id="file-uploadA2" onchange='cambiar2()' type="file" name="cdpro" style='display: none;'/>
 
 									<label for="file-uploadA2" class="login100-form-btn">
 										<i class="fas fa-cloud-upload-alt"></i> Subir archivos
 									</label>
 								</div>
 
+								</br>
+
+								<div id="filesA2" class="document-visualizer text-center">
+									<span class="focus-input100"></span>
+								</div>
+
+								</br>
+
+
 									Curriculum
-									<div class="wrap-input100 validate-input m-b-20" data-validate="Debes subir al menos un archivo" style="border:none;">
-										<input id="file-uploadA3" onchange='cambiar()' type="file" name="cv" style='display: none;'/>
+									<div class="wrap-input100 validate-input m-b-20"  style="border:none;">
+										<input id="file-uploadA3" onchange='cambiar3()' type="file" name="cv" style='display: none;'/>
 
 								<label for="file-uploadA3" class="login100-form-btn">
 									<i class="fas fa-cloud-upload-alt"></i> Subir archivos
 								</label>
 								</div>
 
-								<div id="files" class="document-visualizer text-center">
-									<span class="focus-input100"></span>
-								</div>
 
 							</div>
+
+							<div id="filesA3" class="document-visualizer text-center">
+								<span class="focus-input100"></span>
+							</div>
+
 
 							<div class="wrap-input100 validate-input m-b-20" data-validate="Debes estar de acuerdo" style="border:none;">
 								<input class="input100" style="width:auto; height:auto; display:inline;" type="checkbox" name="agreeA"> Estoy de acuerdo con los <a href="" style="">términos y condiciones.</a></input>

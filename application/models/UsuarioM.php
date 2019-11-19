@@ -7,6 +7,100 @@
             $this->load->database();
         }
 
+        public function get_abogados_inactivos(){
+          $this->db->select('usuario.nombre as nombre,
+          usuario.apellidoP as apellidop, usuario.apellidoM as apellidom,
+          abogado.categoria1 as cat1, abogado.categoria2 as cat2,
+          abogado.categoria3 as cat3, id_usuario as id
+          ');
+          $this->db->from('abogado');
+          $this->db->join('usuario', 'usuario.id_usuario = abogado.usuario_id', 'inner');
+          $id = 0;
+          $this->db->where('usuario.estado',$id);
+          return $this->db->get()->result_array();
+        }
+
+        public function get_abogados_activos(){
+          $this->db->select('usuario.nombre as nombre,
+          usuario.apellidoP as apellidop, usuario.apellidoM as apellidom,
+          abogado.categoria1 as cat1, abogado.categoria2 as cat2,
+          abogado.categoria3 as cat3, id_usuario as id
+          ');
+          $this->db->from('abogado');
+          $this->db->join('usuario', 'usuario.id_usuario = abogado.usuario_id', 'inner');
+          $id = 1;
+          $this->db->where('usuario.estado',$id);
+          return $this->db->get()->result_array();
+        }
+
+        public function get_clientes(){
+          $this->db->select('*');
+          $this->db->from('usuario');
+          $edo = 3;
+          $this->db->where('rol_id',$edo);
+          return $this->db->get()->result_array();
+        }
+
+        public function get_admin(){
+          $this->db->select('*');
+          $this->db->from('usuario');
+          $edo = 1;
+          $this->db->where('rol_id',$edo);
+          return $this->db->get()->result_array();
+        }
+
+
+        function get_categorias(){
+          $this->db->select('*');
+          $this->db->from('categoria');
+          return $this->db->get()->result_array();
+        }
+
+        function get_categorias_id($id){
+          $this->db->select('*');
+          $this->db->from('categoria');
+          $this->db->where('categoria_id',$id);
+          return $this->db->get()->result_array();
+        }
+
+        public function create_user($data){
+          $this->db->insert('usuario',$data);
+          return $this->db->insert_id();
+        }
+
+        public function crearAbogado($data){
+          $this->db->insert('abogado',$data);
+          return $this->db->insert_id();
+        }
+
+        public function crearCliente($data){
+          $this->db->insert('cliente',$data);
+          return $this->db->insert_id();
+        }
+
+        public function delete_usuario($id = null){
+            if($id){
+                $data = array(
+                    'estado' => 0
+                );
+
+                $this->db->where('id_usuario',$id);
+                $this->db->update('usuario',$data);
+            }
+        }
+
+        public function aprobar_usuario($id = null){
+            if($id){
+                $data = array(
+                    'estado' => 1
+                );
+
+                $this->db->where('id_usuario',$id);
+                $this->db->update('usuario',$data);
+            }
+        }
+
+
         function getUsuarioID(){
             $query =    "
                             SELECT
@@ -18,97 +112,33 @@
 
         }
 
+        public function get_user($data){
+          $this->db->select('*');
+          $this->db->from('usuario');
+          $this->db->where('email',$data);
+          return $this->db->get()->result_array();
+        }
+
+
+
         //=================FUNCIONES DE TIPO POST=================//
         function validatedLogin($email,$contra){
             $query =    "SELECT
-                            id_usuario,
-                            nombre,
-                            apellidoP,
-                            apellidoM,
-                            email,
-                            fechaNac,
-                            nombreRol,
-                            valuePermission
+                            *
                         FROM
                             usuario
                             LEFT JOIN(rol) ON usuario.rol_id = rol.id_rol
                         WHERE
+                            estado = 1 and
                             usuario.email = ".$this->db->escape($email)." AND
                             pass = ".$this->db->escape($contra)."
                         ";
             return $this->db->query($query);
         }
 
-        public function updateUser($id,$data){
-            $query =    "UPDATE
-                            usuario
-                        SET
-                            nombre = ".$this->db->escape($data['nombre']).",
-                            apellidoP = ".$this->db->escape($data['apellidoP']).",
-                            apellidoM = ".$this->db->escape($data['apellidoM']).",
-                            email = ".$this->db->escape($data['email']).",
-                            fechaNac = ".$this->db->escape($data['fechaNac'])."                            
-                        WHERE
-                            id_usuario = ".$this->db->escape($id)."
-                        ";
-            return $this->db->query($query);
-        }
+      public function Abo($id = null){
 
-        public function changePass($id,$passNew){
-            $query =    "UPDATE
-                            usuario
-                        SET
-                            pass = ".$this->db->escape($passNew)."
-                        WHERE
-                            id_usuario = ".$this->db->escape($id)."
-                        ";
-            return $this->db->query($query);
-        }
-
-        function createAbo($nombre,$apellidoP,$apellidoM,$email,$pass,$fechaNac,$cuentaBanco,$costoBase,$descripcion,$cedulaPro){
-            $query =    "INSERT INTO usuario(
-                            nombre,
-                            apellidoP,
-                            apellidoM,
-                            email,
-                            pass,
-                            fechaNac,
-                            rol_id
-                        )
-                        VALUES(
-                            ".$this->db->escape($nombre).",
-                            ".$this->db->escape($apellidoP).",
-                            ".$this->db->escape($apellidoM).",
-                            ".$this->db->escape($email).",
-                            ".$this->db->escape($pass).",
-                            ".$this->db->escape($fechaNac).",
-                            2
-                        )
-                        ";
-            $result = $this->db->query($query);
-            if($result){
-                $utlimoID = $this->db->insert_id();
-                $query =    "INSERT INTO abogado(
-                                cuentaBanco,
-                                costoBase,
-                                descripcion,
-                                cedulaPro,
-                                usuario_id
-                            )
-                            VALUES(
-                                ".$this->db->escape($cuentaBanco).",
-                                ".$this->db->escape($costoBase).",
-                                ".$this->db->escape($descripcion).",
-                                ".$this->db->escape($cedulaPro).",
-                                ".$utlimoID."
-                            )
-                            ";
-                $result = $this->db->query($query);
-                if($result)
-                    $result = $utlimoID;
-            }
-            return $result;
-        }
+      }
 
         function createCli($nombre,$apellidoP,$apellidoM,$email,$pass,$fechaNac,$metodoPago){
             $query =    "INSERT INTO usuario(
@@ -193,19 +223,7 @@
             return $this->db->query($query);
         }
 
-        function verifyPassCurrently($id,$passCurrently){
-            $query =    "SELECT
-                            id_usuario
-                        FROM
-                            usuario
-                        WHERE
-                            pass = ".$this->db->escape($passCurrently)." AND
-                            id_usuario = ".$this->db->escape($id)."
-                        ";
-            return $this->db->query($query);
-        }
 
-        
 
 
 

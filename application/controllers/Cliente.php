@@ -1,18 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-header('Access-Control-Allow-Origin: *');
-header("Content-Type: multipart/form-data ; charset=utf-8");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
-
-use Restserver\libraries\REST_Controller;
-use Restserver\libraries\REST_Controller_Definitions;
-
-require APPPATH . '/libraries/REST_Controller_Definitions.php';
-require APPPATH . '/libraries/REST_Controller.php';
-require APPPATH . '/libraries/Format.php';
 class Cliente extends CI_Controller {
+
+  public function __construct(){
+	 parent::__construct();
+
+
+	 header( 'X-Content-Type-Options: nosniff' );
+	 header( 'X-Frame-Options: SAMEORIGIN' );
+	 header( 'X-XSS-Protection: 1; mode=block' );
+
+ 	}
 
 	/**
 	 * Index Page for this controller.
@@ -31,8 +31,29 @@ class Cliente extends CI_Controller {
 	 */
 
   public function welcome(){
-  //  $this->load->model('Admin_model');
-		$this->load->view('ingreso/index');
+    $this->load->model('UsuarioM');
+
+     $id = $_SESSION['id'];
+
+    $data2=$this->UsuarioM->get_abogados_activos($id);
+
+    if($data2){
+
+      foreach ($data2 as &$k) {
+        // code...
+        $datax =$this->UsuarioM->get_categorias_id($k['cat1']) ;
+        $k['cat1']= $datax[0]['nombre'];
+        $datax =$this->UsuarioM->get_categorias_id($k['cat2']) ;
+        $k['cat2']= $datax[0]['nombre'];
+        $datax =$this->UsuarioM->get_categorias_id($k['cat3']) ;
+        $k['cat3']= $datax[0]['nombre'];
+      }
+
+    }
+
+    $data   = array('data2' => $data2 );
+
+		$this->load->view('cliente/content',$data);
 
 	}
 
@@ -42,14 +63,11 @@ class Cliente extends CI_Controller {
 		$this->load->view('welcome_message');
 	}
 
-	use REST_Controller {
-		REST_Controller::__construct as private __resTraitConstruct;
-    }
 
 	//=================FUNCIONES DE TIPO POST=================//
 	public function updateMyInfoA_post(){
         $this->load->model('ClienteM');
-		$id = $this->session->id;	
+		$id = $this->session->id;
 		$data = array(
 			'metodoPago' => $this->input->post('metodoPago')
         );
@@ -78,6 +96,7 @@ class Cliente extends CI_Controller {
 	}
 
 	//=================FUNCIONES QUE PUEDE REALIZAR ESTA CLASE=================//
-	
+
 
 }
+?>

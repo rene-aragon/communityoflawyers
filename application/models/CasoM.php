@@ -1,7 +1,7 @@
 <?php
     class CasoM extends CI_Model {
-        
-        
+
+
         public function __construct(){
             parent::__construct();
             $this->load->database();
@@ -9,7 +9,7 @@
         }
 
         public function get_client_id_by_email($data){
-            
+
             $this->db->select('id_usuario');
             $this->db->from('usuario');
             $this->db->where('email',$data);
@@ -22,10 +22,44 @@
 
 
                 return $this->db->insert('caso',$data);
-            
-            
-            
+
+
+
         }
+
+        public function rechazar_caso($id = null){
+            if($id){
+                $data = array(
+                    'estado' => 2
+                );
+
+                $this->db->where('id_caso',$id);
+                $this->db->update('caso',$data);
+            }
+        }
+
+        public function aceptar_caso($id = null){
+            if($id){
+                $data = array(
+                    'estado' => 1
+                );
+
+                $this->db->where('id_caso',$id);
+                $this->db->update('caso',$data);
+            }
+        }
+
+        public function completar_caso($id = null){
+            if($id){
+                $data = array(
+                    'estado' => 3
+                );
+
+                $this->db->where('id_caso',$id);
+                $this->db->update('caso',$data);
+            }
+        }
+
 
         public function get_casos($data){
             $this->db->select('*');
@@ -59,12 +93,12 @@
         public function get_categoria(){
             $this->db->select('*');
             $this->db->from('categoria');
-          
+
             $query = $this->db->get()->result_array();
             return ($query)?$query[0]['id_usuario']:false;
         }
 
-        /*  
+        /*
             NOTA:   Revisar que valores de las llaves foraneas se deben devolver, mientras solo se regresan las llaves 05:02 pm 15/11/19
         */
         public function get_caso_ByID($data){
@@ -81,7 +115,7 @@
             $query = $this->db->get()->result_array();
             return ($query);
         }
-        
+
         /*
             NOTA: Cambiar si es necesario la forma de hacer la query
         */
