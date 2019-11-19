@@ -1,11 +1,8 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <!-- META SECTION -->
-        <title>Community of lawyers</title>
+        <title>Joli Admin - Responsive Bootstrap Admin Template</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,47 +23,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
-                        <a href="index.html">Admin</a>
+                        <a href="index.html">Joli Admin</a>
                         <a href="#" class="x-navigation-control"></a>
                     </li>
                     <li class="xn-profile">
                         <a href="#" class="profile-mini">
-                          <?php
-                              $image_properties = array(
-                                  'src'   => $_SESSION["imagen"],
-                                  'alt'   => $_SESSION["nombre"],
-                                  'class' => 'imagen',
-                                  'width' => '200',
-                                  'height'=> '200',
-                                  'title' => $_SESSION["nombre"],
-                                  'rel'   => 'lightbox'
-                              );
-
-                               echo img($image_properties);
-
-                          ?>
+                            <img src='<? php echo base_url("assets/images/users/avatar.jpg") ?>' alt="John Doe"/>
                         </a>
                         <div class="profile">
                             <div class="profile-image">
-                              <?php
-                                  $image_properties = array(
-                                      'src'   => $_SESSION["imagen"],
-                                      'alt'   => $_SESSION["nombre"],
-                                      'class' => 'imagen',
-                                      'width' => '200',
-                                      'height'=> '200',
-                                      'title' => $_SESSION["nombre"],
-                                      'rel'   => 'lightbox'
-                                  );
-
-                                   echo img($image_properties);
-
-                              ?>
-
+                                <img src='<? php echo base_url("assets/images/users/avatar.jpg") ?>' alt="John Doe"/>
                             </div>
                             <div class="profile-data">
-                                <div class="profile-data-name"><?php echo $_SESSION['nombre'];?></div>
-                                <div class="profile-data-title">Cliente</div>
+                                <div class="profile-data-name">John Doe</div>
+                                <div class="profile-data-title">Web Developer/Designer</div>
                             </div>
                             <div class="profile-controls">
                                 <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a>
@@ -75,15 +45,60 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                         </div>
                     </li>
                     <li class="xn-title">Navigation</li>
-
-                    <li class="xn-openable">
+                    <li>
+                        <a href="index.html"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>
+                    </li>
+                    <li class="xn-openable active">
                         <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Pages</span></a>
                         <ul>
                             <li><a href="pages-gallery.html"><span class="fa fa-image"></span> Gallery</a></li>
-                            <li><a href="pages-profile.html"><span class="fa fa-user"></span> Profile</a></li>
+                            <li class="active"><a href="pages-profile.html"><span class="fa fa-user"></span> Profile</a></li>
                             <li><a href="pages-address-book.html"><span class="fa fa-users"></span> Address Book</a></li>
+                            <li class="xn-openable">
+                                <a href="#"><span class="fa fa-clock-o"></span> Timeline</a>
+                                <ul>
+                                    <li><a href="pages-timeline.html"><span class="fa fa-align-center"></span> Default</a></li>
+                                    <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> Full Width</a></li>
+                                </ul>
+                            </li>
+                            <li class="xn-openable">
+                                <a href="#"><span class="fa fa-envelope"></span> Mailbox</a>
+                                <ul>
+                                    <li><a href="pages-mailbox-inbox.html"><span class="fa fa-inbox"></span> Inbox</a></li>
+                                    <li><a href="pages-mailbox-message.html"><span class="fa fa-file-text"></span> Message</a></li>
+                                    <li><a href="pages-mailbox-compose.html"><span class="fa fa-pencil"></span> Compose</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="pages-messages.html"><span class="fa fa-comments"></span> Messages</a></li>
+                            <li><a href="pages-calendar.html"><span class="fa fa-calendar"></span> Calendar</a></li>
+                            <li><a href="pages-tasks.html"><span class="fa fa-edit"></span> Tasks</a></li>
+                            <li><a href="pages-content-table.html"><span class="fa fa-columns"></span> Content Table</a></li>
+                            <li><a href="pages-faq.html"><span class="fa fa-question-circle"></span> FAQ</a></li>
+                            <li><a href="pages-search.html"><span class="fa fa-search"></span> Search</a></li>
+                            <li class="xn-openable">
+                                <a href="#"><span class="fa fa-file"></span> Blog</a>
 
-
+                                <ul>
+                                    <li><a href="pages-blog-list.html"><span class="fa fa-copy"></span> List of Posts</a></li>
+                                    <li><a href="pages-blog-post.html"><span class="fa fa-file-o"></span>Single Post</a></li>
+                                </ul>
+                            </li>
+                            <li class="xn-openable">
+                                <a href="#"><span class="fa fa-sign-in"></span> Login</a>
+                                <ul>
+                                    <li><a href="pages-login.html">App Login</a></li>
+                                    <li><a href="pages-login-website.html">Website Login</a></li>
+                                    <li><a href="pages-login-website-light.html"> Website Login Light</a></li>
+                                </ul>
+                            </li>
+                            <li class="xn-openable">
+                                <a href="#"><span class="fa fa-warning"></span> Error Pages</a>
+                                <ul>
+                                    <li><a href="pages-error-404.html">Error 404 Sample 1</a></li>
+                                    <li><a href="pages-error-404-2.html">Error 404 Sample 2</a></li>
+                                    <li><a href="pages-error-500.html"> Error 500</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li class="xn-openable">
@@ -138,11 +153,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                             <li><a href="form-file-handling.html"><span class="fa fa-floppy-o"></span> File Handling</a></li>
                         </ul>
                     </li>
-                    <li class="xn-openable active">
+                    <li class="xn-openable">
                         <a href="tables.html"><span class="fa fa-table"></span> <span class="xn-text">Tables</span></a>
                         <ul>
                             <li><a href="table-basic.html"><span class="fa fa-align-justify"></span> Basic</a></li>
-                            <li class="active"><a href="table-datatables.html"><span class="fa fa-sort-alpha-desc"></span> Data Tables</a></li>
+                            <li><a href="table-datatables.html"><span class="fa fa-sort-alpha-desc"></span> Data Tables</a></li>
                             <li><a href="table-export.html"><span class="fa fa-download"></span> Export Tables</a></li>
                         </ul>
                     </li>
@@ -179,6 +194,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                             </li>
                         </ul>
                     </li>
+
                 </ul>
                 <!-- END X-NAVIGATION -->
             </div>
@@ -187,7 +203,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
             <!-- PAGE CONTENT -->
             <div class="page-content">
 
-               <!-- START X-NAVIGATION VERTICAL -->
+                <!-- START X-NAVIGATION VERTICAL -->
                 <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
                     <!-- TOGGLE NAVIGATION -->
                     <li class="xn-icon-button">
@@ -302,90 +318,102 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Abogado</a></li>
+                    <li><a href="#">Pages</a></li>
+                    <li class="active">Profile</li>
                 </ul>
                 <!-- END BREADCRUMB -->
 
-                <!-- PAGE TITLE -->
-                <div class="page-title">
-                    <h2><span></span> Abogado</h2>
-                </div>
-                <!-- END PAGE TITLE -->
-
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
-
 
                     <div class="row">
                         <div class="col-md-12">
 
                             <div class="panel panel-default">
+                                <div class="panel-body profile" style="background: url('assets/images/gallery/music-4.jpg') center center no-repeat;">
+                                    <div class="profile-image">
+                                      <?php
+                                          $image_properties = array(
+                                              'src'   => $data[0]['imagen'],
+                                              'alt'   => $data[0]["nombre"],
+                                              'class' => 'imagen',
+                                              'width' => '200',
+                                              'height'=> '200',
+                                              'title' => $data[0]["nombre"],
+                                              'rel'   => 'lightbox'
+                                          );
 
-                              <!-- START DEFAULT DATATABLE -->
-                               <div class="panel panel-default">
-                                   <div class="panel-heading">
-                                       <h3 class="panel-title">Default</h3>
-                                       <ul class="panel-controls">
-                                           <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                                           <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                           <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-                                       </ul>
-                                   </div>
-                                   <div class="panel-body">
-                                       <table class="table datatable">
-                                           <thead>
-                                               <tr>
-                                               <th style="text-align:center;">Nombre</th>
-                                               <th style="text-align:center;">Categoria 1</th>
-                                               <th style="text-align:center;">Categoria 2</th>
-                                               <th style="text-align:center;">Categoria 3</th>
-                                               <th style="text-align:center;">Aprobar</th>
-                                               </tr>
-                                           </thead>
-                                           <tbody>
+                                           echo img($image_properties);
 
-                                           <?php
-                                              //var_dump($data1);
-                                             foreach ($data2 as $y) {
-                                               // code...
-                                               echo('
-                                                     <tr>
-                                                         <td style="text-align:center;">'.$y["nombre"].' '.$y["apellidop"].' '.$y['apellidom'].'</td>
-                                                         <td style="text-align:center;">'.$y["cat1"].'</td>
-                                                         <td style="text-align:center;">'.$y["cat2"].'</td>
-                                                         <td style="text-align:center;">'.$y["cat3"].'</td>
-                                                         <td style="text-align:center;"><a href="'.base_url('cliente/contactar_abogado/'.$y["id"]).'"  ><i class="fa fa-check"></i></a></td>
+                                      ?>
+                                    </div>
+                                    <div class="profile-data">
+                                        <div class="profile-data-name" style="color: #000;"><?php echo ($data[0]['nombre']." ".$data[0]['apellidop']." ".$data[0]['apellidom'])?></div>
+                                        <div class="profile-data-title" style="color: #000;">Abogado</div>
+                                    </div>
+                                    <div class="profile-controls">
+                                        <a href="#" class="profile-control-left twitter"><span class="fa fa-twitter"></span></a>
+                                        <a href="#" class="profile-control-right facebook"><span class="fa fa-facebook"></span></a>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button class="btn btn-info btn-rounded btn-block"><span class="fa fa-check"></span> Following</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button class="btn btn-primary btn-rounded btn-block"><span class="fa fa-comments"></span> Chat</button>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                                     </tr>
-
-                                               ');
-                                             }
-
-                                           ?>
-
-                                           </tbody>
-                                       </table>
-                                   </div>
-                               </div>
-                              <!-- END DEFAULT DATATABLE -->
 
                             </div>
-                            <!-- START CONTENT FRAME BODY -->
-
-                            <!-- END CONTENT FRAME BODY -->
-
-
 
                         </div>
-                        <!-- START CONTENT FRAME BODY -->
 
-                        <!-- END CONTENT FRAME BODY -->
+                            <div class="col-md-12">
+                        <div>
+                            <!-- START KNOB SLIDER -->
+
+                    <!-- END KNOB SLIDER -->
+
+                        <div class="col-md-12">
+                            <!-- START VERTICAL TABS WITH HEADING -->
+                            <div class="panel panel-default nav-tabs-vertical">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Tabs with heading</h3>
+                                    </div>
+                                    <div class="tabs">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#tab19" data-toggle="tab"><?php echo $data[0]['cat1']?></a></li>
+                                            <li><a href="#tab20" data-toggle="tab"><?php echo $data[0]['cat2']?></a></li>
+                                            <li><a href="#tab21" data-toggle="tab"><?php echo $data[0]['cat3']?></a></li>
+                                        </ul>
+                                        <div class="panel-body tab-content">
+                                            <div class="tab-pane active" id="tab19">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum dolor sem, quis pharetra dui ultricies vel. Cras non pulvinar tellus, vel bibendum magna. Morbi tellus nulla, cursus non nisi sed, porttitor dignissim erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc facilisis commodo lectus. Vivamus vel tincidunt enim, non vulputate ipsum. Ut pellentesque consectetur arcu sit amet scelerisque. Fusce commodo leo eros, ut eleifend massa congue at.</p>
+                                                <p>Nam a nisi et nisi tristique lacinia non sit amet orci. Duis blandit leo odio, eu varius nulla fringilla adipiscing. Praesent posuere blandit diam, sit amet suscipit justo consequat sed. Duis cursus volutpat ante at convallis. Integer posuere a enim eget imperdiet. Nulla consequat dui quis purus molestie fermentum. Donec faucibus sapien eu nisl placerat auctor. Pellentesque quis justo lobortis, tempor sapien vitae, dictum orci.</p>
+                                            </div>
+                                            <div class="tab-pane" id="tab20">
+                                                <p>Donec tristique eu sem et aliquam. Proin sodales elementum urna et euismod. Quisque nisl nisl, venenatis eget dignissim et, adipiscing eu tellus. Sed nulla massa, luctus id orci sed, elementum consequat est. Proin dictum odio quis diam gravida facilisis. Sed pharetra dolor a tempor tristique. Sed semper sed urna ac dignissim. Aenean fermentum leo at posuere mattis. Etiam vitae quam in magna viverra dictum. Curabitur feugiat ligula in dui luctus, sed aliquet neque posuere.</p>
+                                                <p>Nam a nisi et nisi tristique lacinia non sit amet orci. Duis blandit leo odio, eu varius nulla fringilla adipiscing. Praesent posuere blandit diam, sit amet suscipit justo consequat sed. Duis cursus volutpat ante at convallis. Integer posuere a enim eget imperdiet. Nulla consequat dui quis purus molestie fermentum. Donec faucibus sapien eu nisl placerat auctor. Pellentesque quis justo lobortis, tempor sapien vitae, dictum orci.</p>
+                                            </div>
+                                            <div class="tab-pane" id="tab21">
+                                                <p>Vestibulum cursus augue sed leo tempor, at aliquam orci dictum. Sed mattis metus id velit aliquet, et interdum nulla porta. Etiam euismod pellentesque purus, in fermentum eros venenatis ut. Praesent vitae nibh ac augue gravida lacinia non a ipsum. Aenean vestibulum eu turpis eu posuere. Sed eget lacus lacinia, mollis urna et, interdum dui. Donec sed diam ut metus imperdiet malesuada. Maecenas tincidunt ultricies ipsum, lobortis pretium dolor sodales ut. Donec nec fringilla nulla. In mattis sapien lorem, nec tincidunt elit scelerisque tempus.</p>
+                                                <p>Nam a nisi et nisi tristique lacinia non sit amet orci. Duis blandit leo odio, eu varius nulla fringilla adipiscing. Praesent posuere blandit diam, sit amet suscipit justo consequat sed. Duis cursus volutpat ante at convallis. Integer posuere a enim eget imperdiet. Nulla consequat dui quis purus molestie fermentum. Donec faucibus sapien eu nisl placerat auctor. Pellentesque quis justo lobortis, tempor sapien vitae, dictum orci.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END VERTICAL TABS WITH HEADING -->
 
                         </div>
+
                     </div>
 
                 </div>
-                <!-- PAGE CONTENT WRAPPER -->
+                <!-- END PAGE CONTENT WRAPPER -->
             </div>
             <!-- END PAGE CONTENT -->
         </div>
@@ -411,68 +439,60 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
         </div>
         <!-- END MESSAGE BOX-->
 
-        <div class="message-box animated fadeIn" data-sound="alert" id="acept">
-            <div class="mb-container">
-                <div class="mb-middle">
-                    <div class="mb-title"><span class="fa fa-check">¿Desea <strong>aceptar</strong> este caso?</div>
-                    <div class="mb-content">
-                        <p>¿Seguro que desea aceptar este caso?</p>
-
-                    </div>
-                    <div class="mb-footer">
-                        <div class="pull-right">
-                            <a href="#" class="btn btn-success btn-lg">Yes</a>
-                            <button class="btn btn-default btn-lg mb-control-close">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- BLUEIMP GALLERY -->
+        <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+            <div class="slides"></div>
+            <h3 class="title"></h3>
+            <a class="prev">‹</a>
+            <a class="next">›</a>
+            <a class="close">×</a>
+            <a class="play-pause"></a>
+            <ol class="indicator"></ol>
         </div>
-
-
-        <div class="message-box animated fadeIn" data-sound="alert" id="deny">
-            <div class="mb-container">
-                <div class="mb-middle">
-                    <div class="mb-title"><span class="fa fa-times"></span> ¿Desea <strong>rechazar</strong> este caso?</div>
-                    <div class="mb-content">
-                        <p>¿Seguro que desea rechazar este caso?</p>
-                    </div>
-                    <div class="mb-footer">
-                        <div class="pull-right">
-                            <a href="#" class="btn btn-success btn-lg">Si</a>
-                            <button class="btn btn-default btn-lg mb-control-close">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- END BLUEIMP GALLERY -->
 
         <!-- START PRELOADS -->
         <audio id="audio-alert" src='<? php echo base_url("audio/alert.mp3") ?>' preload="auto"></audio>
         <audio id="audio-fail" src='<? php echo base_url("audio/fail.mp3") ?>' preload="auto"></audio>
         <!-- END PRELOADS -->
 
-        <!-- START SCRIPTS -->
-                <!-- START PLUGINS -->
-                <script type="text/javascript" src='<?php echo base_url("public/joli/js/plugins/jquery/jquery.min.js") ?>'></script>
-                <script type="text/javascript" src='<?php echo base_url("public/joli/js/plugins/jquery/jquery-ui.min.js") ?>'></script>
-                <script type="text/javascript" src='<?php echo base_url("public/joli/js/plugins/bootstrap/bootstrap.min.js") ?>'></script>
-                <!-- END PLUGINS -->
+    <!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+        <script type="text/javascript" src='<? php echo base_url("js/plugins/jquery/jquery.min.js") ?>'></script>
+        <script type="text/javascript" src='<? php echo base_url("js/plugins/jquery/jquery-ui.min.js") ?>'></script>
+        <script type="text/javascript" src='<? php echo base_url("js/plugins/bootstrap/bootstrap.min.js") ?>'></script>
+        <script type="text/javascript" src='<? php echo base_url("js/plugins/knob/jquery.knob.min.js") ?>'></script>
+        <!-- END PLUGINS -->
 
-                <!-- THIS PAGE PLUGINS -->
-                <script type='text/javascript' src='<?php echo base_url("public/joli/js/plugins/icheck/icheck.min.js") ?>'></script>
-                <script type="text/javascript" src='<?php echo base_url("public/joli/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js") ?>'></script>
+        <!-- START THIS PAGE PLUGINS-->
+        <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src='<? php echo base_url("js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js") ?>'></script>
 
-                <script type="text/javascript" src='<?php echo base_url("public/joli/js/plugins/datatables/jquery.dataTables.min.js") ?>'></script>
-                <!-- END PAGE PLUGINS -->
+        <script type="text/javascript" src='<? php echo base_url("js/plugins/blueimp/jquery.blueimp-gallery.min.js") ?>'></script>
+        <!-- END THIS PAGE PLUGINS-->
 
-                <!-- START TEMPLATE -->
+        <!-- START TEMPLATE -->
+        <script type="text/javascript" src='<? php echo base_url("js/settings.js") ?>'></script>
 
+        <script type="text/javascript" src='<? php echo base_url("js/plugins.js") ?>'></script>
+        <script type="text/javascript" src='<? php echo base_url("js/actions.js") ?>'></script>
+        <!-- END TEMPLATE -->
 
-                <script type="text/javascript" src='<?php echo base_url("public/joli/js/plugins.js") ?>'></script>
-                <script type="text/javascript" src='<?php echo base_url("public/joli/js/actions.js") ?>'></script>
-                <!-- END TEMPLATE -->
-            <!-- END SCRIPTS -->
+        <script>
+            document.getElementById('links').onclick = function (event) {
+                event = event || window.event;
+                var target = event.target || event.srcElement,
+                    link = target.src ? target.parentNode : target,
+                    options = {index: link, event: event,onclosed: function(){
+                        setTimeout(function(){
+                            $("body").css("overflow","");
+                        },200);
+                    }},
+                    links = this.getElementsByTagName('a');
+                blueimp.Gallery(links, options);
+            };
+        </script>
 
+    <!-- END SCRIPTS -->
     </body>
 </html>

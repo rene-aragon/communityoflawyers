@@ -355,7 +355,7 @@ class Usuario extends CI_Controller{
 											'fechaNac' => $this->input->post('fechanC',true),
 											'estado' => 1,
 											'imagen' => $y,
-											'rol_id' => 1
+											'rol_id' => 3
 										);
 
 										$id = $this->UsuarioM->create_user($datam);
@@ -372,7 +372,7 @@ class Usuario extends CI_Controller{
 
 
 										echo "<script>
-		 								alert('Gracias por registrarse, espere a que sea activado por el administrador');
+		 								alert('Gracias por registrarse, puede usar nuestro sistema de inmediato');
 		 							 </script>";
 
 		 							 redirect('index.php', 'refresh');

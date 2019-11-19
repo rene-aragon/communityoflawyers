@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                             </div>
                             <div class="profile-data">
                                 <div class="profile-data-name"><?php echo $_SESSION['nombre'];?></div>
-                                <div class="profile-data-title">Abogado</div>
+                                <div class="profile-data-title">Administrador</div>
                             </div>
                             <div class="profile-controls">
                                 <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a>

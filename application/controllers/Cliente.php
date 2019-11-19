@@ -57,6 +57,28 @@ class Cliente extends CI_Controller {
 
 	}
 
+  public function contactar_abogado($id){
+    $this->load->model('UsuarioM');
+    $data2=$this->UsuarioM->contactar_abogado($id);
+    if($data2){
+
+      foreach ($data2 as &$k) {
+        // code...
+        $datax =$this->UsuarioM->get_categorias_id($k['cat1']) ;
+        $k['cat1']= $datax[0]['nombre'];
+        $datax =$this->UsuarioM->get_categorias_id($k['cat2']) ;
+        $k['cat2']= $datax[0]['nombre'];
+        $datax =$this->UsuarioM->get_categorias_id($k['cat3']) ;
+        $k['cat3']= $datax[0]['nombre'];
+      }
+
+    }
+    $data1   = array('data' => $data2 );
+    $this->load->view('cliente/contacto', $data1);
+  }
+
+
+
 
 	public function index()
 	{

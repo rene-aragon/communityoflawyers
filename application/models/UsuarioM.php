@@ -33,6 +33,19 @@
           return $this->db->get()->result_array();
         }
 
+        public function contactar_abogado($id){
+          $this->db->select('usuario.nombre as nombre,
+          usuario.apellidoP as apellidop, usuario.apellidoM as apellidom,
+          usuario.imagen as imagen,
+          abogado.categoria1 as cat1, abogado.categoria2 as cat2,
+          abogado.categoria3 as cat3, id_usuario as id
+          ');
+          $this->db->from('abogado');
+          $this->db->join('usuario', 'usuario.id_usuario = abogado.usuario_id', 'inner');
+          $this->db->where('usuario.id_usuario',$id);
+          return $this->db->get()->result_array();
+        }
+
         public function get_clientes(){
           $this->db->select('*');
           $this->db->from('usuario');
