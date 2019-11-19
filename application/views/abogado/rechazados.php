@@ -224,25 +224,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                             <div class="panel-body list-group list-group-contacts scroll" style="height: 200px;">
                                 <a href="#" class="list-group-item">
                                     <div class="list-group-status status-online"></div>
-                                    <img src='<? php echo base_url("assets/images/users/user2.jpg") ?>' class="pull-left" alt="John Doe"/>
+                                    <img src='<?php echo base_url("assets/images/users/user2.jpg") ?>' class="pull-left" alt="John Doe"/>
                                     <span class="contacts-title">John Doe</span>
                                     <p>Praesent placerat tellus id augue condimentum</p>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <div class="list-group-status status-away"></div>
-                                    <img src='<? php echo base_url("assets/images/users/user.jpg") ?>' class="pull-left" alt="Dmitry Ivaniuk"/>
+                                    <img src='<?php echo base_url("assets/images/users/user.jpg") ?>' class="pull-left" alt="Dmitry Ivaniuk"/>
                                     <span class="contacts-title">Dmitry Ivaniuk</span>
                                     <p>Donec risus sapien, sagittis et magna quis</p>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <div class="list-group-status status-away"></div>
-                                    <img src='<? php echo base_url("assets/images/users/user3.jpg") ?>' class="pull-left" alt="Nadia Ali"/>
+                                    <img src='<?php echo base_url("assets/images/users/user3.jpg") ?>' class="pull-left" alt="Nadia Ali"/>
                                     <span class="contacts-title">Nadia Ali</span>
                                     <p>Mauris vel eros ut nunc rhoncus cursus sed</p>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <div class="list-group-status status-offline"></div>
-                                    <img src='<? php echo base_url("assets/images/users/user6.jpg") ?>' class="pull-left" alt="Darth Vader"/>
+                                    <img src='<?php echo base_url("assets/images/users/user6.jpg") ?>' class="pull-left" alt="Darth Vader"/>
                                     <span class="contacts-title">Darth Vader</span>
                                     <p>I want my money back!</p>
                                 </a>
@@ -440,8 +440,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
         </div>
 
         <!-- START PRELOADS -->
-        <audio id="audio-alert" src='<? php echo base_url("audio/alert.mp3") ?>' preload="auto"></audio>
-        <audio id="audio-fail" src='<? php echo base_url("audio/fail.mp3") ?>' preload="auto"></audio>
+        <audio id="audio-alert" src='<?php echo base_url("audio/alert.mp3") ?>' preload="auto"></audio>
+        <audio id="audio-fail" src='<?php echo base_url("audio/fail.mp3") ?>' preload="auto"></audio>
         <!-- END PRELOADS -->
 
         <!-- START SCRIPTS -->
