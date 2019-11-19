@@ -12,6 +12,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
+/*/'username' => 'colaw',
+	'password' => 'co00ol4a44w',*/
+
 -- Dumping database structure for colaw
 CREATE DATABASE IF NOT EXISTS `colaw` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `colaw`;
@@ -21,9 +24,9 @@ CREATE TABLE IF NOT EXISTS `abogado` (
   `id_abogado` int(11) NOT NULL AUTO_INCREMENT,
   `cuentaBanco` int(11) NOT NULL,
   `costoBase` double NOT NULL,
-  `descripcion` text NOT NULL,
-  `cedulaPro` varchar(255) NOT NULL DEFAULT '',
-  `Column 10` varchar(255) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `cedula` varchar(255) NOT NULL DEFAULT '',
+  `curriculum` varchar(255) NOT NULL,
   `categoria1` int(11) NOT NULL DEFAULT 1,
   `categoria2` int(11) DEFAULT NULL,
   `categoria3` int(11) DEFAULT NULL,
@@ -31,10 +34,14 @@ CREATE TABLE IF NOT EXISTS `abogado` (
   PRIMARY KEY (`id_abogado`),
   KEY `abogado_ibfk_1` (`usuario_id`),
   CONSTRAINT `abogado_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table colaw.abogado: ~0 rows (approximately)
+-- Dumping data for table colaw.abogado: ~1 rows (approximately)
 /*!40000 ALTER TABLE `abogado` DISABLE KEYS */;
+INSERT IGNORE INTO `abogado` (`id_abogado`, `cuentaBanco`, `costoBase`, `descripcion`, `cedula`, `curriculum`, `categoria1`, `categoria2`, `categoria3`, `usuario_id`) VALUES
+	(1, 2147483647, 5000, NULL, 'public/uploads/Offline_Storage_Data_Sheet10.pdf', 'public/uploads/Offline_Storage_Data_Sheet11.pdf', 1, 2, 3, 2),
+	(2, 2147483647, 5000, NULL, 'public/uploads/Offline_Storage_Data_Sheet10.pdf', 'public/uploads/Offline_Storage_Data_Sheet11.pdf', 2, 4, 8, 6),
+	(3, 2147483647, 5000, NULL, 'public/uploads/Offline_Storage_Data_Sheet12.pdf', 'public/uploads/Offline_Storage_Data_Sheet13.pdf', 1, 2, 8, 13);
 /*!40000 ALTER TABLE `abogado` ENABLE KEYS */;
 
 -- Dumping structure for table colaw.caso
@@ -46,21 +53,35 @@ CREATE TABLE IF NOT EXISTS `caso` (
   `titulo` varchar(50) NOT NULL DEFAULT '',
   `descripcion` varchar(255) DEFAULT '',
   `estado` int(11) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_caso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- Dumping data for table colaw.caso: ~0 rows (approximately)
+-- Dumping data for table colaw.caso: ~11 rows (approximately)
 /*!40000 ALTER TABLE `caso` DISABLE KEYS */;
+INSERT IGNORE INTO `caso` (`id_caso`, `abogado_id`, `cliente_id`, `categoria_id`, `titulo`, `descripcion`, `estado`, `fecha`) VALUES
+	(1, 6, 7, 1, 'caso civil', '', 2, '2019-11-18 16:58:41'),
+	(2, 6, 7, 1, 'dinero dinero dinero', '', 2, '2019-11-18 17:00:29'),
+	(3, 6, 7, 1, 'lorem ipsum', '', 3, '2019-11-19 10:34:32'),
+	(4, 6, 7, 1, 'Lorem ipsum dolor sit amet consectetur .', '', 2, '2019-11-19 10:34:17'),
+	(5, 6, 7, 1, 'Lorem ipsum potenti.', '', 1, '2019-11-19 10:34:09'),
+	(6, 6, 7, 1, 'Lorem ipsum potenti.uuuu', '', 1, '2019-11-19 10:34:28'),
+	(7, 6, 7, 1, 'Lorem ipsum potenti.www', '', 0, '2019-11-18 12:50:34'),
+	(8, 6, 7, 1, 'Lorem ipsum potenti.xd', '', 0, '2019-11-18 12:50:39'),
+	(9, 6, 7, 1, 'Lorem ipsum potenti.wewe', '', 0, '2019-11-18 12:50:39'),
+	(10, 6, 7, 1, 'caso civil 2', '', 0, '2019-11-18 12:51:23'),
+	(11, 6, 7, 1, 'caso civil 3', '', 0, '2019-11-18 12:51:27'),
+	(12, 6, 7, 1, 'caso civil 4', '', 0, '2019-11-18 12:51:31');
 /*!40000 ALTER TABLE `caso` ENABLE KEYS */;
 
 -- Dumping structure for table colaw.categoria
 CREATE TABLE IF NOT EXISTS `categoria` (
   `categoria_id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL DEFAULT '0',
+  `nombre` varchar(50) DEFAULT '0',
   PRIMARY KEY (`categoria_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dumping data for table colaw.categoria: ~7 rows (approximately)
+-- Dumping data for table colaw.categoria: ~8 rows (approximately)
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
 INSERT IGNORE INTO `categoria` (`categoria_id`, `nombre`) VALUES
 	(1, 'CIVIL'),
@@ -69,7 +90,8 @@ INSERT IGNORE INTO `categoria` (`categoria_id`, `nombre`) VALUES
 	(4, 'MERCANTIL'),
 	(5, 'PENAL'),
 	(6, 'PROCESAL'),
-	(7, 'INMOBILIARIO');
+	(7, 'INMOBILIARIO'),
+	(8, '');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 
 -- Dumping structure for table colaw.cliente
@@ -80,10 +102,17 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   PRIMARY KEY (`id_cliente`),
   KEY `cliente_ibfk_1` (`usuario_id`),
   CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
--- Dumping data for table colaw.cliente: ~0 rows (approximately)
+-- Dumping data for table colaw.cliente: ~3 rows (approximately)
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT IGNORE INTO `cliente` (`id_cliente`, `metodoPago`, `usuario_id`) VALUES
+	(1, 'credito', 7),
+	(2, 'credito', 8),
+	(3, 'transferencia', 9),
+	(4, 'transferencia', 10),
+	(5, 'transferencia', 11),
+	(6, 'transferencia', 12);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 
 -- Dumping structure for table colaw.rol
@@ -117,12 +146,21 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`id_usuario`),
   KEY `usuario_ibfk_1` (`rol_id`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id_rol`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
--- Dumping data for table colaw.usuario: ~0 rows (approximately)
+-- Dumping data for table colaw.usuario: ~6 rows (approximately)
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT IGNORE INTO `usuario` (`id_usuario`, `nombre`, `apellidoP`, `apellidoM`, `email`, `pass`, `fechaNac`, `estado`, `imagen`, `rol_id`) VALUES
-	(1, 'BRYAN', 'TLATELPA', 'SILVA', 'ejemplo@gmail.com', '123456', '2000-01-01', 1, '1', 1);
+	(1, 'BRYAN', 'TLATELPA', 'SILVA', 'ejemplo@gmail.com', '123456', '2000-01-01', 1, '1', 1),
+	(2, 'Rodrigo', 'Chantes', 'Palacios', 'rodrigo.chantes@hotmail.com', '123456', '1997-06-05', 0, 'public/uploads/Aerobics4.png', 2),
+	(6, 'Rodrigo', 'Chantes', 'Palacios', 'rodrigo.chantes@gmail.com', '123456', '1997-06-05', 1, 'public/uploads/Aerobics4.png', 2),
+	(7, 'Luis', 'Rey', 'Salas', 'luis.rey@gmail.com', '123456', '1997-06-05', 1, 'public/uploads/Aerobics4.png', 3),
+	(8, 'Sergio', 'Martinez', 'Cornelio', 'sergio.martinez@gmail.com', '123456', '1997-06-05', 0, 'public/uploads/Aerobics4.png', 3),
+	(9, 'Luis', 'Rey', 'Salas', 'luis.rey.salas@gmail.com', '123456', '1997-06-05', 1, 'public/uploads/taylor_swift_450.jpg', 1),
+	(10, 'Rodrigo', 'Palacios', 'Chantes', 'rodrigo.palacios@gmail.com', '123456', '1997-06-05', 1, 'public/uploads/Taylor_Swift.jpg', 1),
+	(11, 'Rodrigo', 'Chantes', 'Perez', 'rodrigo.chantes.perez@hotmail.com', '123456', '1997-06-05', 1, 'public/uploads/taylor_swift_4501.jpg', 3),
+	(12, 'Luis', 'Perez', 'Rojas', 'luis.perez@gmail.com', '123456', '1997-06-05', 1, 'public/uploads/taylor_swift_4502.jpg', 3),
+	(13, 'Rodrigo Francisco', 'Chantes', 'Perez', 'rodrigofcp@gmail.com', '123456', '1997-06-05', 1, 'public/uploads/taylor_swift_4503.jpg', 2);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
