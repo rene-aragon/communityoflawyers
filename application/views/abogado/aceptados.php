@@ -36,8 +36,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                                   'src'   => $_SESSION["imagen"],
                                   'alt'   => $_SESSION["nombre"],
                                   'class' => 'imagen',
-                                  'width' => '200',
-                                  'height'=> '200',
+                                  //'width'=> '200',
+                                  //'height'=> '200',
                                   'title' => $_SESSION["nombre"],
                                   'rel'   => 'lightbox'
                               );
@@ -53,8 +53,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                                       'src'   => $_SESSION["imagen"],
                                       'alt'   => $_SESSION["nombre"],
                                       'class' => 'imagen',
-                                      'width' => '200',
-                                      'height'=> '200',
+                                      //'width'=> '200',
+                                      //'height'=> '200',
                                       'title' => $_SESSION["nombre"],
                                       'rel'   => 'lightbox'
                                   );

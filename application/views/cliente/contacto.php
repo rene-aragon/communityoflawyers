@@ -28,11 +28,39 @@
                     </li>
                     <li class="xn-profile">
                         <a href="#" class="profile-mini">
-                            <img src='<?php echo base_url("assets/images/users/avatar.jpg") ?>' alt="John Doe"/>
+                        <?php
+                              $image_properties = array(
+                                  'src'   => $_SESSION["imagen"],
+                                  'alt'   => $_SESSION["nombre"],
+                                  'class' => 'imagen',
+                                  //'width'=> '200',
+                                  //'height'=> '200',
+                                  'title' => $_SESSION["nombre"],
+                                  'rel'   => 'lightbox'
+                              );
+
+                               echo img($image_properties);
+
+                          ?>
                         </a>
+                        
                         <div class="profile">
                             <div class="profile-image">
-                                <img src='<?php echo base_url("assets/images/users/avatar.jpg") ?>' alt="John Doe"/>
+                            <?php
+                              $image_properties = array(
+                                  'src'   => $_SESSION["imagen"],
+                                  'alt'   => $_SESSION["nombre"],
+                                  'class' => 'imagen',
+                                  //'width'=> '200',
+                                  //'height'=> '200',
+                                  'title' => $_SESSION["nombre"],
+                                  'rel'   => 'lightbox'
+                              );
+
+                               echo img($image_properties);
+
+                          ?>
+                         
                             </div>
                             <div class="profile-data">
                                 <div class="profile-data-name">John Doe</div>
@@ -337,8 +365,8 @@
                                               'src'   => $data[0]['imagen'],
                                               'alt'   => $data[0]["nombre"],
                                               'class' => 'imagen',
-                                              'width' => '200',
-                                              'height'=> '200',
+                                              //'width'=> '200',
+                                              //'height'=> '200',
                                               'title' => $data[0]["nombre"],
                                               'rel'   => 'lightbox'
                                           );
